@@ -12,5 +12,5 @@
 				<button class="close-button" id="close-button">Close Menu</button>
 			</div>
 			<button class="menu-button" id="open-button">Open Menu</button>
-		<script src="/memberz_menu/js/classie.js"></script>
-		<script src="/memberz_menu/js/main.js"></script>
+		<script src="/res/memberz_menu/js/classie.js"></script>
+		<script src="/res/memberz_menu/js/main.js"></script>

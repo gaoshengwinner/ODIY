@@ -41,5 +41,5 @@
 <div id="dg"
 	style="z-index: 9999; position: fixed ! important; left: 10vw; top: 60vh;">
 	<img id="gotoback" onclick="gotoHome();" style="width: 10vw; opacity: 0.5;"
-		alt="return" src="/return.jpeg">
+		alt="return" src="/res/return.jpeg">
 </div>

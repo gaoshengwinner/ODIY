@@ -172,11 +172,6 @@ body {
 				<p class="message">
 					<a href="/member/regist">アカウント登録>></a>
 				</p>
-				<!-- <a href="sms:09092434152&body=message_body">给 10086 发短信</a>
-				
-<a href="sms:10086?body=哈哈哈呵呵呵">测试</a> //安卓
- 
-<a href="sms:07021555558&body=哈哈哈呵呵呵">测试</a>//IOS -->
 			</form:form>
 		</div>
 	</div>
