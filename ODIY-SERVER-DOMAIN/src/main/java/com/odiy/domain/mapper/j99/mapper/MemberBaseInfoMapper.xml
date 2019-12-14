@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.odiy.domain.mapper.j99.mapper.MemberBaseInfoMapper">
+  <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.MemberBaseInfo">
+    <id column="MEMBER_ID" jdbcType="INTEGER" property="memberId" />
+    <result column="MEMBER_PHONE_NO" jdbcType="CHAR" property="memberPhoneNo" />
+    <result column="MEMBER_PHONE_4BIT" jdbcType="VARCHAR" property="memberPhone4bit" />
+    <result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
+    <result column="MEMBER_STAUS" jdbcType="CHAR" property="memberStaus" />
+    <result column="MEMBER_PASSWORD" jdbcType="CHAR" property="memberPassword" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    MEMBER_ID, MEMBER_PHONE_NO, MEMBER_PHONE_4BIT, MEMBER_EMAIL, MEMBER_STAUS, MEMBER_PASSWORD
+  </sql>
+  <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T0201_MEMBER_BASE_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T0201_MEMBER_BASE_INFO
+    where MEMBER_ID = #{memberId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T0201_MEMBER_BASE_INFO
+    where MEMBER_ID = #{memberId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfoExample">
+    delete from T0201_MEMBER_BASE_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="MEMBER_ID" keyProperty="memberId" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo" useGeneratedKeys="true">
+    insert into T0201_MEMBER_BASE_INFO (MEMBER_PHONE_NO, MEMBER_PHONE_4BIT, MEMBER_EMAIL, 
+      MEMBER_STAUS, MEMBER_PASSWORD)
+    values (#{memberPhoneNo,jdbcType=CHAR}, #{memberPhone4bit,jdbcType=VARCHAR}, #{memberEmail,jdbcType=VARCHAR}, 
+      #{memberStaus,jdbcType=CHAR}, #{memberPassword,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="MEMBER_ID" keyProperty="memberId" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo" useGeneratedKeys="true">
+    insert into T0201_MEMBER_BASE_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberPhoneNo != null">
+        MEMBER_PHONE_NO,
+      </if>
+      <if test="memberPhone4bit != null">
+        MEMBER_PHONE_4BIT,
+      </if>
+      <if test="memberEmail != null">
+        MEMBER_EMAIL,
+      </if>
+      <if test="memberStaus != null">
+        MEMBER_STAUS,
+      </if>
+      <if test="memberPassword != null">
+        MEMBER_PASSWORD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberPhoneNo != null">
+        #{memberPhoneNo,jdbcType=CHAR},
+      </if>
+      <if test="memberPhone4bit != null">
+        #{memberPhone4bit,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberStaus != null">
+        #{memberStaus,jdbcType=CHAR},
+      </if>
+      <if test="memberPassword != null">
+        #{memberPassword,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfoExample" resultType="java.lang.Long">
+    select count(*) from T0201_MEMBER_BASE_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T0201_MEMBER_BASE_INFO
+    <set>
+      <if test="record.memberId != null">
+        MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
+      </if>
+      <if test="record.memberPhoneNo != null">
+        MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=CHAR},
+      </if>
+      <if test="record.memberPhone4bit != null">
+        MEMBER_PHONE_4BIT = #{record.memberPhone4bit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberEmail != null">
+        MEMBER_EMAIL = #{record.memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberStaus != null">
+        MEMBER_STAUS = #{record.memberStaus,jdbcType=CHAR},
+      </if>
+      <if test="record.memberPassword != null">
+        MEMBER_PASSWORD = #{record.memberPassword,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T0201_MEMBER_BASE_INFO
+    set MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
+      MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=CHAR},
+      MEMBER_PHONE_4BIT = #{record.memberPhone4bit,jdbcType=VARCHAR},
+      MEMBER_EMAIL = #{record.memberEmail,jdbcType=VARCHAR},
+      MEMBER_STAUS = #{record.memberStaus,jdbcType=CHAR},
+      MEMBER_PASSWORD = #{record.memberPassword,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo">
+    update T0201_MEMBER_BASE_INFO
+    <set>
+      <if test="memberPhoneNo != null">
+        MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=CHAR},
+      </if>
+      <if test="memberPhone4bit != null">
+        MEMBER_PHONE_4BIT = #{memberPhone4bit,jdbcType=VARCHAR},
+      </if>
+      <if test="memberEmail != null">
+        MEMBER_EMAIL = #{memberEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="memberStaus != null">
+        MEMBER_STAUS = #{memberStaus,jdbcType=CHAR},
+      </if>
+      <if test="memberPassword != null">
+        MEMBER_PASSWORD = #{memberPassword,jdbcType=CHAR},
+      </if>
+    </set>
+    where MEMBER_ID = #{memberId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo">
+    update T0201_MEMBER_BASE_INFO
+    set MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=CHAR},
+      MEMBER_PHONE_4BIT = #{memberPhone4bit,jdbcType=VARCHAR},
+      MEMBER_EMAIL = #{memberEmail,jdbcType=VARCHAR},
+      MEMBER_STAUS = #{memberStaus,jdbcType=CHAR},
+      MEMBER_PASSWORD = #{memberPassword,jdbcType=CHAR}
+    where MEMBER_ID = #{memberId,jdbcType=INTEGER}
+  </update>
+</mapper>

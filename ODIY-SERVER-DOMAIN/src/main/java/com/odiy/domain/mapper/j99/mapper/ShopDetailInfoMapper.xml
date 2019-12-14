@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.odiy.domain.mapper.j99.mapper.ShopDetailInfoMapper">
+  <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.ShopDetailInfo">
+    <id column="SHOP_ID" jdbcType="INTEGER" property="shopId" />
+    <id column="DETAIL_ID" jdbcType="INTEGER" property="detailId" />
+    <result column="DETAIL_COMMENT" jdbcType="VARCHAR" property="detailComment" />
+    <result column="DETAIL_TEXT" jdbcType="VARCHAR" property="detailText" />
+    <result column="DETAIL_IMG_ID" jdbcType="CHAR" property="detailImgId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    SHOP_ID, DETAIL_ID, DETAIL_COMMENT, DETAIL_TEXT, DETAIL_IMG_ID
+  </sql>
+  <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T0102_SHOP_DETAIL_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from T0102_SHOP_DETAIL_INFO
+    where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from T0102_SHOP_DETAIL_INFO
+    where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfoExample">
+    delete from T0102_SHOP_DETAIL_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfo">
+    insert into T0102_SHOP_DETAIL_INFO (SHOP_ID, DETAIL_ID, DETAIL_COMMENT, 
+      DETAIL_TEXT, DETAIL_IMG_ID)
+    values (#{shopId,jdbcType=INTEGER}, #{detailId,jdbcType=INTEGER}, #{detailComment,jdbcType=VARCHAR}, 
+      #{detailText,jdbcType=VARCHAR}, #{detailImgId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfo">
+    insert into T0102_SHOP_DETAIL_INFO
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        SHOP_ID,
+      </if>
+      <if test="detailId != null">
+        DETAIL_ID,
+      </if>
+      <if test="detailComment != null">
+        DETAIL_COMMENT,
+      </if>
+      <if test="detailText != null">
+        DETAIL_TEXT,
+      </if>
+      <if test="detailImgId != null">
+        DETAIL_IMG_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="detailId != null">
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="detailComment != null">
+        #{detailComment,jdbcType=VARCHAR},
+      </if>
+      <if test="detailText != null">
+        #{detailText,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImgId != null">
+        #{detailImgId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfoExample" resultType="java.lang.Long">
+    select count(*) from T0102_SHOP_DETAIL_INFO
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T0102_SHOP_DETAIL_INFO
+    <set>
+      <if test="record.shopId != null">
+        SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailId != null">
+        DETAIL_ID = #{record.detailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailComment != null">
+        DETAIL_COMMENT = #{record.detailComment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailText != null">
+        DETAIL_TEXT = #{record.detailText,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailImgId != null">
+        DETAIL_IMG_ID = #{record.detailImgId,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T0102_SHOP_DETAIL_INFO
+    set SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      DETAIL_ID = #{record.detailId,jdbcType=INTEGER},
+      DETAIL_COMMENT = #{record.detailComment,jdbcType=VARCHAR},
+      DETAIL_TEXT = #{record.detailText,jdbcType=VARCHAR},
+      DETAIL_IMG_ID = #{record.detailImgId,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfo">
+    update T0102_SHOP_DETAIL_INFO
+    <set>
+      <if test="detailComment != null">
+        DETAIL_COMMENT = #{detailComment,jdbcType=VARCHAR},
+      </if>
+      <if test="detailText != null">
+        DETAIL_TEXT = #{detailText,jdbcType=VARCHAR},
+      </if>
+      <if test="detailImgId != null">
+        DETAIL_IMG_ID = #{detailImgId,jdbcType=CHAR},
+      </if>
+    </set>
+    where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.ShopDetailInfo">
+    update T0102_SHOP_DETAIL_INFO
+    set DETAIL_COMMENT = #{detailComment,jdbcType=VARCHAR},
+      DETAIL_TEXT = #{detailText,jdbcType=VARCHAR},
+      DETAIL_IMG_ID = #{detailImgId,jdbcType=CHAR}
+    where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and DETAIL_ID = #{detailId,jdbcType=INTEGER}
+  </update>
+</mapper>
