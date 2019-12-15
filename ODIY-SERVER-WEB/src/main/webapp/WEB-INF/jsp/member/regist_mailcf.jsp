@@ -37,7 +37,7 @@
 <body class="myBody">
 	<%@ include file="/WEB-INF/jsp/common/returnButton.jsp"%>
 	<form:form modelAttribute="memgerRegistMailCFForm" class="form login-form"
-		action="/member/regist_mailcf" method="post">
+		action="${ctx}/member/regist_mailcf" method="post">
 		<h3 style="border-left: 6px solid #00BFFF; padding: 0px 2px 0px 10px;">メルー確認</h3>
 		<h5>貴方の登録用メルーアドレスへ送った確認コードを入力してください。</h5>
 		<form:input path="code" placeholder="確認コードを入力してください。" />
@@ -45,7 +45,7 @@
 		<button>確認</button>
 		<div style="width: 100%; text-align: right;">
 			<p class="message">
-				<a href="/member/login">ログイン>></a>
+				<a href="${ctx}/member/login">ログイン>></a>
 			</p>
 		</div>
 	</form:form>

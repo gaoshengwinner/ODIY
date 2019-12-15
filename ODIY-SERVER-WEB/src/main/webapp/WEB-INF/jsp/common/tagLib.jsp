@@ -5,3 +5,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>	
+<c:set var="ctx" value="http://192.168.0.4:8080"/>

@@ -37,11 +37,14 @@
 <body class="myBody">
 	<%@ include file="/WEB-INF/jsp/common/returnButton.jsp"%>
 	<form:form modelAttribute="memgerLoginForm" class="form login-form"
-		action="/member/login" method="post">
+		action="${ctx}/member/login" method="post">
 		<h3 style="border-left: 6px solid #00BFFF; padding: 0px 2px 0px 10px;">ログインしてください</h3>
 		<c:if test="${not empty param.error}">
 			<span class="error">メールアドレス或いはパースワードはただしくありません。</span>
 		</c:if>
+		<div>
+		<%@ include file="/WEB-INF/jsp/common/slidercaptcha.jsp"%>
+		</div>
 		<input type="text" placeholder="メールアドレス" name="memberEmail" />
 		<form:errors path="memberEmail" class="error" htmlEscape="div" />
 		<input type="password" placeholder="パースワード" name="memberPassword" />
@@ -54,7 +57,7 @@
 		<button>登録</button>
 		<div style="width: 100%; text-align: right;">
 			<p class="message">
-				<a href="/member/regist">会員のご登録はこちら>></a>
+				<a href="${ctx}/member/regist">会員のご登録はこちら>></a>
 			</p>
 		</div>
 	</form:form>

@@ -37,7 +37,7 @@
 <body class="myBody">
 	<%@ include file="/WEB-INF/jsp/common/returnButton.jsp"%>
 	<form:form modelAttribute="memgerRegistForm" class="form login-form"
-		action="/member/regist" method="post">
+		action="${ctx}/member/regist" method="post">
 		<h3 style="border-left: 6px solid #00BFFF; padding: 0px 2px 0px 10px;">アカウント登録</h3>
 		<form:input path="memberEmail" placeholder="メールアドレス" />
 		<form:errors path="memberEmail" class="error" htmlEscape="div" />
@@ -48,7 +48,7 @@
 		<button>次へ</button>
 		<div style="width: 100%; text-align: right;">
 			<p class="message">
-				<a href="/member/login">ログイン>></a>
+				<a href="${ctx}/member/login">ログイン>></a>
 			</p>
 		</div>
 	</form:form>

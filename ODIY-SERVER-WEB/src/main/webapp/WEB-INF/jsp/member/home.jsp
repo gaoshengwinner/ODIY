@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
 <link rel="stylesheet" type="text/css"
-	href="/res/member_mane/member_mane.css" />
+	href="${ctx}/res/member_mane/member_mane.css" />
 <head>
 <meta charset="UTF-8" />
 <title>管理画面</title>
@@ -24,8 +24,8 @@
 </style>
 </head>
 <body>
-	<%@ include file="/WEB-INF/jsp/common/member_menu.jsp"%>
-	<div class="title-bar">123</div>
+	<%@ include file="${ctx}/WEB-INF/jsp/common/member_menu.jsp"%>
+	<div class="title-bar">Home</div>
 	<div></div>
 	<div></div>
 </body>

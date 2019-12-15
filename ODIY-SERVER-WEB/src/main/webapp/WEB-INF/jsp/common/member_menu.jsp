@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-		<link rel="stylesheet" type="text/css" href="/res/memberz_menu/css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="/res/memberz_menu/fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
-		<link rel="stylesheet" type="text/css" href="/res/memberz_menu/css/menu_sideslide.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/res/memberz_menu/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/res/memberz_menu/fonts/font-awesome-4.2.0/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="${ctx}/res/memberz_menu/css/menu_sideslide.css" />
 
 			<div class="menu-wrap">
 				<nav class="menu">
@@ -16,5 +16,5 @@
 				<button class="close-button" id="close-button">Close Menu</button>
 			</div>
 			<button class="menu-button" id="open-button">Open Menu</button>
-		<script src="/res/memberz_menu/js/classie.js"></script>
-		<script src="/res/memberz_menu/js/main.js"></script>
+		<script src="${ctx}/res/memberz_menu/js/classie.js"></script>
+		<script src="${ctx}/res/memberz_menu/js/main.js"></script>
