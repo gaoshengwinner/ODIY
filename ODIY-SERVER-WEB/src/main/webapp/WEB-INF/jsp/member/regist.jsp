@@ -46,9 +46,11 @@
 		<form:password path="memberPasswordcf" placeholder="パースワード" />
 		<form:errors path="memberPasswordcf" class="error" htmlEscape="div" />
 		<button>次へ</button>
-		<p class="message">
-			<a href="/member/login">ログイン>></a>
-		</p>
+		<div style="width: 100%; text-align: right;">
+			<p class="message">
+				<a href="/member/login">ログイン>></a>
+			</p>
+		</div>
 	</form:form>
 </body>
 

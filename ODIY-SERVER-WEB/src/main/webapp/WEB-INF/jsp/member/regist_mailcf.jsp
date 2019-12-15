@@ -43,9 +43,11 @@
 		<form:input path="code" placeholder="確認コードを入力してください。" />
 		<form:errors path="*" class="error" htmlEscape="div" />
 		<button>確認</button>
-		<p class="message">
-			<a href="/member/regist">アカウント登録>></a>
-		</p>
+		<div style="width: 100%; text-align: right;">
+			<p class="message">
+				<a href="/member/login">ログイン>></a>
+			</p>
+		</div>
 	</form:form>
 </body>
 
