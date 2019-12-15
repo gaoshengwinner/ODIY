@@ -14,11 +14,14 @@
 .clearfix:after { clear: both; }
 
 body {
-	background: #b4bad2;
-	color: #fffce1;
-	font-weight: 400;
-	font-size: 1em;
-	font-family: 'Raleway',0 Arial, sans-serif;
+	background: #FCFCFC; /* fallback for old browsers */
+	background: -webkit-linear-gradient(right, #FCFCFC, #e3f1fc);
+	background: -moz-linear-gradient(right, #FCFCFC, #e3f1fc);
+	background: -o-linear-gradient(right, #FCFCFC, #e3f1fc);
+	background: linear-gradient(to left, #FCFCFC, #e3f1fc);
+	font-family: "Roboto", sans-serif;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
 
 a {

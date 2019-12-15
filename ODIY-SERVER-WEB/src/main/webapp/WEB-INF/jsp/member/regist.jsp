@@ -9,137 +9,17 @@
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>会員ログイン</title>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!-- uni 的 SDK，必须引用。 -->  
-<script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.1.js"></script>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!-- uni 的 SDK，必须引用。 -->
+<script type="text/javascript"
+	src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.1.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="/res/login_regist/login_regist.css" />
 <style type="text/css">
-@import url(https://fonts.googleapis.com/css?family=Roboto:300);
-
-.login-page {
-	width: 360px;
-	padding: 8% 0 0;
-	margin: auto;
-}
-
-.form {
-	position: relative;
-	z-index: 1;
-	background: #FFFFFF;
-	max-width: 360px;
-	margin: 0 auto 100px;
-	padding: 45px;
-	text-align: left;
-	box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0
-		rgba(0, 0, 0, 0.24);
-}
-
-.form input {
-	font-family: "Roboto", sans-serif;
-	outline: 0;
-	background: #f2f2f2;
-	width: 100%;
-	border: 0;
-	margin: 0 0 15px;
-	padding: 15px;
-	box-sizing: border-box;
-	font-size: 14px;
-}
-
-.form button {
-	font-family: "Roboto", sans-serif;
-	text-transform: uppercase;
-	outline: 0;
-	background: #00BFFF;
-	width: 100%;
-	border: 0;
-	padding: 15px;
-	color: #FFFFFF;
-	font-size: 14px;
-	-webkit-transition: all 0.3 ease;
-	transition: all 0.3 ease;
-	cursor: pointer;
-}
-
-.form button:hover, .form button:active, .form button:focus {
-	background: #43A047;
-}
-
-.form .message {
-	margin: 15px 0 0;
-	color: #b3b3b3;
-	font-size: 12px;
-}
-
-.form .message a {
-	color: #4CAF50;
-	text-decoration: none;
-}
-
-.form .register-form {
-	display: none;
-}
-
-.container {
-	position: relative;
-	z-index: 1;
-	max-width: 300px;
-	margin: 0 auto;
-}
-
-.container:before, .container:after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-.container .info {
-	margin: 50px auto;
-	text-align: center;
-}
-
-.container .info h1 {
-	margin: 0 0 15px;
-	padding: 0;
-	font-size: 36px;
-	font-weight: 300;
-	color: #1a1a1a;
-}
-
-.container .info span {
-	color: #4d4d4d;
-	font-size: 12px;
-}
-
-.container .info span a {
-	color: #000000;
-	text-decoration: none;
-}
-
-.container .info span .fa {
-	color: #EF3B3A;
-}
-
-body {
-	background: #FCFCFC; /* fallback for old browsers */
-	background: -webkit-linear-gradient(right, #FCFCFC, #e3f1fc);
-	background: -moz-linear-gradient(right, #FCFCFC, #e3f1fc);
-	background: -o-linear-gradient(right, #FCFCFC, #e3f1fc);
-	background: linear-gradient(to left, #FCFCFC, #e3f1fc);
-	font-family: "Roboto", sans-serif;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-}
-
-.error {
-	color: #ff0000;
-}
-
-.errorblock {
-	color: #000;
-	background-color: #ffEEEE;
-	border: 3px solid #ff0000;
-	padding: 8px;
-	margin: 16px;
+.myBody {
+	padding-top: 8%;
+	padding-left: 0%;
 }
 </style>
 <script type="text/javascript">
@@ -149,38 +29,27 @@ body {
 			opacity : "toggle"
 		}, "slow");
 	});
-	$('button').click(function(){
+	$('button').click(function() {
 		$('form').submit();
-		});
-	
+	});
 </script>
 </head>
-<body>
-<%@ include file="/WEB-INF/jsp/common/returnButton.jsp"%>
-	<div class="login-page">
-		<div class="form">
-			<form:form modelAttribute="memgerRegistForm" class="login-form"
-				action="/member/regist" method="post">
-				<h3
-					style="border-left: 6px solid #00BFFF; padding: 0px 2px 0px 10px;">アカウント登録</h3>
-				<form:input path="memberEmail" placeholder="メールアドレス" />
-				<form:errors path="memberEmail" class="error" htmlEscape="div"/>
-				<form:password path="memberPassword" placeholder="パースワード"/>
-				<form:errors path="memberPassword" class="error" htmlEscape="div"/>
-				<form:password path="memberPasswordcf" placeholder="パースワード"/>
-				<form:errors path="memberPasswordcf" class="error" htmlEscape="div"/>
-				<button >次へ</button>
-				<p class="message">
-					<a href="/member/login">ログイン>></a>
-				</p>
-				<!-- <a href="sms:09092434152&body=message_body">给 10086 发短信</a>
-				
-<a href="sms:10086?body=哈哈哈呵呵呵">测试</a> //安卓
- 
-<a href="sms:07021555558&body=哈哈哈呵呵呵">测试</a>//IOS -->
-			</form:form>
-		</div>
-	</div>
+<body class="myBody">
+	<%@ include file="/WEB-INF/jsp/common/returnButton.jsp"%>
+	<form:form modelAttribute="memgerRegistForm" class="form login-form"
+		action="/member/regist" method="post">
+		<h3 style="border-left: 6px solid #00BFFF; padding: 0px 2px 0px 10px;">アカウント登録</h3>
+		<form:input path="memberEmail" placeholder="メールアドレス" />
+		<form:errors path="memberEmail" class="error" htmlEscape="div" />
+		<form:password path="memberPassword" placeholder="パースワード" />
+		<form:errors path="memberPassword" class="error" htmlEscape="div" />
+		<form:password path="memberPasswordcf" placeholder="パースワード" />
+		<form:errors path="memberPasswordcf" class="error" htmlEscape="div" />
+		<button>次へ</button>
+		<p class="message">
+			<a href="/member/login">ログイン>></a>
+		</p>
+	</form:form>
 </body>
 
 </html>
