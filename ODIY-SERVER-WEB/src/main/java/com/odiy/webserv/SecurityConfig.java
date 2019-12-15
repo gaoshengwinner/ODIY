@@ -33,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll().anyRequest().authenticated();
 
 		http.formLogin().loginPage("/member/login").usernameParameter("memberEmail").passwordParameter("memberPassword")
-				.successForwardUrl("/member/home");// .failureUrl("/login-error").and().exceptionHandling().accessDeniedPage("/401");
+				.successForwardUrl("/member/home").failureUrl("/member/login?error=1");//.and().exceptionHandling().accessDeniedPage("/401");
 
 		http.logout().logoutUrl("/member/logout").logoutSuccessUrl("/member/login")
 				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout", "GET")).deleteCookies("JSESSIONID")
