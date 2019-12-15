@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;;
 
@@ -28,13 +29,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.authorizeRequests().antMatchers("/res/**","/member/regist", "/", "/member/login", "/member/regist_mailcf")
+		http.authorizeRequests().antMatchers("/res/**", "/member/regist", "/", "/member/login", "/member/regist_mailcf")
 				.permitAll().anyRequest().authenticated();
 
 		http.formLogin().loginPage("/member/login").usernameParameter("memberEmail").passwordParameter("memberPassword")
-				.successForwardUrl("/member/home");//.failureUrl("/login-error").and().exceptionHandling().accessDeniedPage("/401");
+				.successForwardUrl("/member/home");// .failureUrl("/login-error").and().exceptionHandling().accessDeniedPage("/401");
 
-		//http.logout().logoutSuccessUrl("/member/login");
+		http.logout().logoutUrl("/member/logout").logoutSuccessUrl("/member/login")
+				.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout", "GET")).deleteCookies("JSESSIONID")
+				.invalidateHttpSession(true).and();
 	}
 
 	@Bean
