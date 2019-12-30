@@ -24,7 +24,7 @@
 </style>
 </head>
 <body>
-	<%@ include file="${ctx}/WEB-INF/jsp/common/member_menu.jsp"%>
+	<%@ include file="/WEB-INF/jsp/common/member_menu.jsp"%>
 	<div class="title-bar">Home</div>
 	<div></div>
 	<div></div>
