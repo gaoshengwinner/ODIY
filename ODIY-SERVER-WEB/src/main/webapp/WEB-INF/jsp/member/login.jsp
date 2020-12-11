@@ -29,8 +29,24 @@
 			opacity : "toggle"
 		}, "slow");
 	});
-	$('button').click(function() {
-		$('form').submit();
+
+	$(".message").click(function() {
+		// touchstar以降のイベントを発生させないように
+		//event.preventDefault();
+
+		alert(1);
+		// 何らかの処理
+		document.getElementId('mydate').type = 'date';
+	});
+	$(function() {
+		var a = document.querySelector('.mydate').addEventListener(
+				'touchstart', function(event) {
+					// touchstar以降のイベントを発生させないように
+					//event.preventDefault();
+					document.getElementById('mydate').type = 'date';
+					// 何らかの処理
+					//foo();  
+				});
 	});
 </script>
 </head>
@@ -50,10 +66,12 @@
 		<input type="password" placeholder="パースワード" name="memberPassword" />
 		<form:errors path="memberPassword" class="error" htmlEscape="div" />
 		<div style="white-space: nowrap; width: 10px">
-			<input type="checkbox" id="remembermeParamater"
+			<input class="message" type="checkbox" id="remembermeParamater"
 				name="remembermeParamater" value="true" checked title="" /> <label
 				for="remembermeParamater" class="message" for="remembermeParamater">ログインしたままにする</label>
 		</div>
+		<input type="text" class="mydate" name="mydate"
+			onblur="this.type='text';" id="mydate" placeholder="生年月日を入力してください。">
 		<button>登録</button>
 		<div style="width: 100%; text-align: right;">
 			<p class="message">

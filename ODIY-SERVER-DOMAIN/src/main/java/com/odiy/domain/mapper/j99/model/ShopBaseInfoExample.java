@@ -165,6 +165,66 @@ public class ShopBaseInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andMemberIdIsNull() {
+            addCriterion("MEMBER_ID is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdIsNotNull() {
+            addCriterion("MEMBER_ID is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdEqualTo(Integer value) {
+            addCriterion("MEMBER_ID =", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotEqualTo(Integer value) {
+            addCriterion("MEMBER_ID <>", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdGreaterThan(Integer value) {
+            addCriterion("MEMBER_ID >", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("MEMBER_ID >=", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdLessThan(Integer value) {
+            addCriterion("MEMBER_ID <", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdLessThanOrEqualTo(Integer value) {
+            addCriterion("MEMBER_ID <=", value, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdIn(List<Integer> values) {
+            addCriterion("MEMBER_ID in", values, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotIn(List<Integer> values) {
+            addCriterion("MEMBER_ID not in", values, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdBetween(Integer value1, Integer value2) {
+            addCriterion("MEMBER_ID between", value1, value2, "memberId");
+            return (Criteria) this;
+        }
+
+        public Criteria andMemberIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("MEMBER_ID not between", value1, value2, "memberId");
+            return (Criteria) this;
+        }
+
         public Criteria andShopNameIsNull() {
             addCriterion("SHOP_NAME is null");
             return (Criteria) this;
@@ -235,76 +295,6 @@ public class ShopBaseInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andShopPostnoIsNull() {
-            addCriterion("SHOP_POSTNO is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoIsNotNull() {
-            addCriterion("SHOP_POSTNO is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoEqualTo(String value) {
-            addCriterion("SHOP_POSTNO =", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoNotEqualTo(String value) {
-            addCriterion("SHOP_POSTNO <>", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoGreaterThan(String value) {
-            addCriterion("SHOP_POSTNO >", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoGreaterThanOrEqualTo(String value) {
-            addCriterion("SHOP_POSTNO >=", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoLessThan(String value) {
-            addCriterion("SHOP_POSTNO <", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoLessThanOrEqualTo(String value) {
-            addCriterion("SHOP_POSTNO <=", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoLike(String value) {
-            addCriterion("SHOP_POSTNO like", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoNotLike(String value) {
-            addCriterion("SHOP_POSTNO not like", value, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoIn(List<String> values) {
-            addCriterion("SHOP_POSTNO in", values, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoNotIn(List<String> values) {
-            addCriterion("SHOP_POSTNO not in", values, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoBetween(String value1, String value2) {
-            addCriterion("SHOP_POSTNO between", value1, value2, "shopPostno");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopPostnoNotBetween(String value1, String value2) {
-            addCriterion("SHOP_POSTNO not between", value1, value2, "shopPostno");
-            return (Criteria) this;
-        }
-
         public Criteria andShopAddrIsNull() {
             addCriterion("SHOP_ADDR is null");
             return (Criteria) this;
@@ -372,76 +362,6 @@ public class ShopBaseInfoExample {
 
         public Criteria andShopAddrNotBetween(String value1, String value2) {
             addCriterion("SHOP_ADDR not between", value1, value2, "shopAddr");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivIsNull() {
-            addCriterion("SHOP_ORDER_DIV is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivIsNotNull() {
-            addCriterion("SHOP_ORDER_DIV is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivEqualTo(String value) {
-            addCriterion("SHOP_ORDER_DIV =", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivNotEqualTo(String value) {
-            addCriterion("SHOP_ORDER_DIV <>", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivGreaterThan(String value) {
-            addCriterion("SHOP_ORDER_DIV >", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivGreaterThanOrEqualTo(String value) {
-            addCriterion("SHOP_ORDER_DIV >=", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivLessThan(String value) {
-            addCriterion("SHOP_ORDER_DIV <", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivLessThanOrEqualTo(String value) {
-            addCriterion("SHOP_ORDER_DIV <=", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivLike(String value) {
-            addCriterion("SHOP_ORDER_DIV like", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivNotLike(String value) {
-            addCriterion("SHOP_ORDER_DIV not like", value, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivIn(List<String> values) {
-            addCriterion("SHOP_ORDER_DIV in", values, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivNotIn(List<String> values) {
-            addCriterion("SHOP_ORDER_DIV not in", values, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivBetween(String value1, String value2) {
-            addCriterion("SHOP_ORDER_DIV between", value1, value2, "shopOrderDiv");
-            return (Criteria) this;
-        }
-
-        public Criteria andShopOrderDivNotBetween(String value1, String value2) {
-            addCriterion("SHOP_ORDER_DIV not between", value1, value2, "shopOrderDiv");
             return (Criteria) this;
         }
 
@@ -572,6 +492,76 @@ public class ShopBaseInfoExample {
 
         public Criteria andAddDateNotBetween(Date value1, Date value2) {
             addCriterion("ADD_DATE not between", value1, value2, "addDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlIsNull() {
+            addCriterion("SHOP_PIC_URL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlIsNotNull() {
+            addCriterion("SHOP_PIC_URL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlEqualTo(String value) {
+            addCriterion("SHOP_PIC_URL =", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlNotEqualTo(String value) {
+            addCriterion("SHOP_PIC_URL <>", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlGreaterThan(String value) {
+            addCriterion("SHOP_PIC_URL >", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("SHOP_PIC_URL >=", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlLessThan(String value) {
+            addCriterion("SHOP_PIC_URL <", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlLessThanOrEqualTo(String value) {
+            addCriterion("SHOP_PIC_URL <=", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlLike(String value) {
+            addCriterion("SHOP_PIC_URL like", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlNotLike(String value) {
+            addCriterion("SHOP_PIC_URL not like", value, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlIn(List<String> values) {
+            addCriterion("SHOP_PIC_URL in", values, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlNotIn(List<String> values) {
+            addCriterion("SHOP_PIC_URL not in", values, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlBetween(String value1, String value2) {
+            addCriterion("SHOP_PIC_URL between", value1, value2, "shopPicUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andShopPicUrlNotBetween(String value1, String value2) {
+            addCriterion("SHOP_PIC_URL not between", value1, value2, "shopPicUrl");
             return (Criteria) this;
         }
     }

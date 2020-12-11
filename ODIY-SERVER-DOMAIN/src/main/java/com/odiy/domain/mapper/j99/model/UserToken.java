@@ -7,20 +7,18 @@ import lombok.Data;
 
 @Data
 @Builder
-public class ShopBaseInfo implements Serializable {
-    private Integer shopId;
-
+public class UserToken implements Serializable {
     private Integer memberId;
 
-    private String shopName;
+    private String deviceId;
 
-    private String shopAddr;
+    private String refreshToken;
 
-    private String shopTel;
+    private Date refreshTokenLimit;
 
-    private Date addDate;
+    private String accessToken;
 
-    private String shopPicUrl;
+    private Date accessTokenLimit;
 
     private static final long serialVersionUID = 1L;
 }

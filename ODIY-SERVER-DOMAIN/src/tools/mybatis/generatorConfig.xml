@@ -83,6 +83,17 @@
 			<generatedKey column="MEMBER_ID"
 				sqlStatement="JDBC" identity="true" />
 		</table>
+		<table tableName="T0205_USER_TOKEN"
+			domainObjectName="UserToken">
+			
+		</table>
+		<table tableName="T0105_SHOP_ITEM"
+			domainObjectName="ShopItem">
+			
+			<generatedKey column="ID"
+				sqlStatement="JDBC" identity="true" />
+		</table>
+		<!-- TO delete j99 -->
 		
 	</context>
 </generatorConfiguration>

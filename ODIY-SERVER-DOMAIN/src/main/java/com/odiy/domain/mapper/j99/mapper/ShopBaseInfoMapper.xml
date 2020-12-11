@@ -3,12 +3,12 @@
 <mapper namespace="com.odiy.domain.mapper.j99.mapper.ShopBaseInfoMapper">
   <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.ShopBaseInfo">
     <id column="SHOP_ID" jdbcType="INTEGER" property="shopId" />
+    <id column="MEMBER_ID" jdbcType="INTEGER" property="memberId" />
     <result column="SHOP_NAME" jdbcType="VARCHAR" property="shopName" />
-    <result column="SHOP_POSTNO" jdbcType="CHAR" property="shopPostno" />
     <result column="SHOP_ADDR" jdbcType="VARCHAR" property="shopAddr" />
-    <result column="SHOP_ORDER_DIV" jdbcType="CHAR" property="shopOrderDiv" />
     <result column="SHOP_TEL" jdbcType="VARCHAR" property="shopTel" />
     <result column="ADD_DATE" jdbcType="TIMESTAMP" property="addDate" />
+    <result column="SHOP_PIC_URL" jdbcType="VARCHAR" property="shopPicUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    SHOP_ID, SHOP_NAME, SHOP_POSTNO, SHOP_ADDR, SHOP_ORDER_DIV, SHOP_TEL, ADD_DATE
+    SHOP_ID, MEMBER_ID, SHOP_NAME, SHOP_ADDR, SHOP_TEL, ADD_DATE, SHOP_PIC_URL
   </sql>
   <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopBaseInfoExample" resultMap="BaseResultMap">
     select
@@ -85,15 +85,17 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from T0101_SHOP_BASEINFO
     where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="map">
     delete from T0101_SHOP_BASEINFO
     where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopBaseInfoExample">
     delete from T0101_SHOP_BASEINFO
@@ -102,27 +104,24 @@
     </if>
   </delete>
   <insert id="insert" keyColumn="SHOP_ID" keyProperty="shopId" parameterType="com.odiy.domain.mapper.j99.model.ShopBaseInfo" useGeneratedKeys="true">
-    insert into T0101_SHOP_BASEINFO (SHOP_NAME, SHOP_POSTNO, SHOP_ADDR, 
-      SHOP_ORDER_DIV, SHOP_TEL, ADD_DATE
+    insert into T0101_SHOP_BASEINFO (MEMBER_ID, SHOP_NAME, SHOP_ADDR, 
+      SHOP_TEL, ADD_DATE, SHOP_PIC_URL
       )
-    values (#{shopName,jdbcType=VARCHAR}, #{shopPostno,jdbcType=CHAR}, #{shopAddr,jdbcType=VARCHAR}, 
-      #{shopOrderDiv,jdbcType=CHAR}, #{shopTel,jdbcType=VARCHAR}, #{addDate,jdbcType=TIMESTAMP}
+    values (#{memberId,jdbcType=INTEGER}, #{shopName,jdbcType=VARCHAR}, #{shopAddr,jdbcType=VARCHAR}, 
+      #{shopTel,jdbcType=VARCHAR}, #{addDate,jdbcType=TIMESTAMP}, #{shopPicUrl,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" keyColumn="SHOP_ID" keyProperty="shopId" parameterType="com.odiy.domain.mapper.j99.model.ShopBaseInfo" useGeneratedKeys="true">
     insert into T0101_SHOP_BASEINFO
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        MEMBER_ID,
+      </if>
       <if test="shopName != null">
         SHOP_NAME,
       </if>
-      <if test="shopPostno != null">
-        SHOP_POSTNO,
-      </if>
       <if test="shopAddr != null">
         SHOP_ADDR,
-      </if>
-      <if test="shopOrderDiv != null">
-        SHOP_ORDER_DIV,
       </if>
       <if test="shopTel != null">
         SHOP_TEL,
@@ -130,25 +129,28 @@
       <if test="addDate != null">
         ADD_DATE,
       </if>
+      <if test="shopPicUrl != null">
+        SHOP_PIC_URL,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="memberId != null">
+        #{memberId,jdbcType=INTEGER},
+      </if>
       <if test="shopName != null">
         #{shopName,jdbcType=VARCHAR},
       </if>
-      <if test="shopPostno != null">
-        #{shopPostno,jdbcType=CHAR},
-      </if>
       <if test="shopAddr != null">
         #{shopAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="shopOrderDiv != null">
-        #{shopOrderDiv,jdbcType=CHAR},
       </if>
       <if test="shopTel != null">
         #{shopTel,jdbcType=VARCHAR},
       </if>
       <if test="addDate != null">
         #{addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="shopPicUrl != null">
+        #{shopPicUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -164,23 +166,23 @@
       <if test="record.shopId != null">
         SHOP_ID = #{record.shopId,jdbcType=INTEGER},
       </if>
+      <if test="record.memberId != null">
+        MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
+      </if>
       <if test="record.shopName != null">
         SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
       </if>
-      <if test="record.shopPostno != null">
-        SHOP_POSTNO = #{record.shopPostno,jdbcType=CHAR},
-      </if>
       <if test="record.shopAddr != null">
         SHOP_ADDR = #{record.shopAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="record.shopOrderDiv != null">
-        SHOP_ORDER_DIV = #{record.shopOrderDiv,jdbcType=CHAR},
       </if>
       <if test="record.shopTel != null">
         SHOP_TEL = #{record.shopTel,jdbcType=VARCHAR},
       </if>
       <if test="record.addDate != null">
         ADD_DATE = #{record.addDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.shopPicUrl != null">
+        SHOP_PIC_URL = #{record.shopPicUrl,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -190,12 +192,12 @@
   <update id="updateByExample" parameterType="map">
     update T0101_SHOP_BASEINFO
     set SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
       SHOP_NAME = #{record.shopName,jdbcType=VARCHAR},
-      SHOP_POSTNO = #{record.shopPostno,jdbcType=CHAR},
       SHOP_ADDR = #{record.shopAddr,jdbcType=VARCHAR},
-      SHOP_ORDER_DIV = #{record.shopOrderDiv,jdbcType=CHAR},
       SHOP_TEL = #{record.shopTel,jdbcType=VARCHAR},
-      ADD_DATE = #{record.addDate,jdbcType=TIMESTAMP}
+      ADD_DATE = #{record.addDate,jdbcType=TIMESTAMP},
+      SHOP_PIC_URL = #{record.shopPicUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -206,14 +208,8 @@
       <if test="shopName != null">
         SHOP_NAME = #{shopName,jdbcType=VARCHAR},
       </if>
-      <if test="shopPostno != null">
-        SHOP_POSTNO = #{shopPostno,jdbcType=CHAR},
-      </if>
       <if test="shopAddr != null">
         SHOP_ADDR = #{shopAddr,jdbcType=VARCHAR},
-      </if>
-      <if test="shopOrderDiv != null">
-        SHOP_ORDER_DIV = #{shopOrderDiv,jdbcType=CHAR},
       </if>
       <if test="shopTel != null">
         SHOP_TEL = #{shopTel,jdbcType=VARCHAR},
@@ -221,17 +217,21 @@
       <if test="addDate != null">
         ADD_DATE = #{addDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="shopPicUrl != null">
+        SHOP_PIC_URL = #{shopPicUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.ShopBaseInfo">
     update T0101_SHOP_BASEINFO
     set SHOP_NAME = #{shopName,jdbcType=VARCHAR},
-      SHOP_POSTNO = #{shopPostno,jdbcType=CHAR},
       SHOP_ADDR = #{shopAddr,jdbcType=VARCHAR},
-      SHOP_ORDER_DIV = #{shopOrderDiv,jdbcType=CHAR},
       SHOP_TEL = #{shopTel,jdbcType=VARCHAR},
-      ADD_DATE = #{addDate,jdbcType=TIMESTAMP}
+      ADD_DATE = #{addDate,jdbcType=TIMESTAMP},
+      SHOP_PIC_URL = #{shopPicUrl,jdbcType=VARCHAR}
     where SHOP_ID = #{shopId,jdbcType=INTEGER}
+      and MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </update>
 </mapper>

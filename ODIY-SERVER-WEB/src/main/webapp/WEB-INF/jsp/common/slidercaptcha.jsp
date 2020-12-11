@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link href="${ctx}/res/sliderauth/lib/twitter-bootstrap/css/bootstrap.min.css"
+<link href="/res/sliderauth/lib/twitter-bootstrap/css/bootstrap.min.css"
 	rel="stylesheet">
-<link href="${ctx}/res/sliderauth/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="${ctx}/res/sliderauth/disk/slidercaptcha.css" rel="stylesheet" />
+<link href="/res/sliderauth/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="/res/sliderauth/disk/slidercaptcha.css" rel="stylesheet" />
 <style>
 .slidercaptcha {
 	margin: 0 auto;
@@ -46,9 +46,9 @@
 		</div>
 	</div>
 </div>
-<script src="${ctx}/res/sliderauth/lib/jquery/jquery.min.js"></script>
-<script src="${ctx}/res/sliderauth/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
-<script src="${ctx}/res/sliderauth/disk/longbow.slidercaptcha.js"></script>
+<script src="/res/sliderauth/lib/jquery/jquery.min.js"></script>
+<script src="/res/sliderauth/lib/twitter-bootstrap/js/bootstrap.bundle.js"></script>
+<script src="/res/sliderauth/disk/longbow.slidercaptcha.js"></script>
 <script>
 	var $captcha = $('#captcha').sliderCaptcha(
 			{

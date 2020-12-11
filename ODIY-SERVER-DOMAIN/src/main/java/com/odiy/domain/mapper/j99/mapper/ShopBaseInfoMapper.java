@@ -12,7 +12,7 @@ public interface ShopBaseInfoMapper {
 
     int deleteByExample(ShopBaseInfoExample example);
 
-    int deleteByPrimaryKey(Integer shopId);
+    int deleteByPrimaryKey(@Param("shopId") Integer shopId, @Param("memberId") Integer memberId);
 
     int insert(ShopBaseInfo record);
 
@@ -20,7 +20,7 @@ public interface ShopBaseInfoMapper {
 
     List<ShopBaseInfo> selectByExample(ShopBaseInfoExample example);
 
-    ShopBaseInfo selectByPrimaryKey(Integer shopId);
+    ShopBaseInfo selectByPrimaryKey(@Param("shopId") Integer shopId, @Param("memberId") Integer memberId);
 
     int updateByExampleSelective(@Param("record") ShopBaseInfo record, @Param("example") ShopBaseInfoExample example);
 

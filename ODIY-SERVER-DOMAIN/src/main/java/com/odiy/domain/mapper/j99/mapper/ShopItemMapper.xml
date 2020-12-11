@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.odiy.domain.mapper.j99.mapper.ShopItemMapper">
+  <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.ShopItem">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="SHOP_ID" jdbcType="INTEGER" property="shopId" />
+    <result column="ORDER_INDEX" jdbcType="INTEGER" property="orderIndex" />
+    <result column="ITEM_NAME" jdbcType="VARCHAR" property="itemName" />
+    <result column="ITEM_PRICE" jdbcType="INTEGER" property="itemPrice" />
+    <result column="ITEM_DESCR" jdbcType="VARCHAR" property="itemDescr" />
+    <result column="ITEM_MAIN_PIC_URL" jdbcType="VARCHAR" property="itemMainPicUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.odiy.domain.mapper.j99.model.ShopItem">
+    <result column="ITEM_DISP_DETAIL" jdbcType="LONGVARCHAR" property="itemDispDetail" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, SHOP_ID, ORDER_INDEX, ITEM_NAME, ITEM_PRICE, ITEM_DESCR, ITEM_MAIN_PIC_URL,ITEM_DISP_DETAIL
+  </sql>
+  <sql id="Blob_Column_List">
+    ITEM_DISP_DETAIL
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T0105_SHOP_ITEM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from T0105_SHOP_ITEM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from T0105_SHOP_ITEM
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from T0105_SHOP_ITEM
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample">
+    delete from T0105_SHOP_ITEM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="ID" keyProperty="id" parameterType="com.odiy.domain.mapper.j99.model.ShopItem" useGeneratedKeys="true">
+    insert into T0105_SHOP_ITEM (SHOP_ID, ORDER_INDEX, ITEM_NAME, 
+      ITEM_PRICE, ITEM_DESCR, ITEM_MAIN_PIC_URL, 
+      ITEM_DISP_DETAIL)
+    values (#{shopId,jdbcType=INTEGER}, #{orderIndex,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, 
+      #{itemPrice,jdbcType=INTEGER}, #{itemDescr,jdbcType=VARCHAR}, #{itemMainPicUrl,jdbcType=VARCHAR}, 
+      #{itemDispDetail,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.odiy.domain.mapper.j99.model.ShopItem" useGeneratedKeys="true">
+    insert into T0105_SHOP_ITEM
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        SHOP_ID,
+      </if>
+      <if test="orderIndex != null">
+        ORDER_INDEX,
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME,
+      </if>
+      <if test="itemPrice != null">
+        ITEM_PRICE,
+      </if>
+      <if test="itemDescr != null">
+        ITEM_DESCR,
+      </if>
+      <if test="itemMainPicUrl != null">
+        ITEM_MAIN_PIC_URL,
+      </if>
+      <if test="itemDispDetail != null">
+        ITEM_DISP_DETAIL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="orderIndex != null">
+        #{orderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=INTEGER},
+      </if>
+      <if test="itemDescr != null">
+        #{itemDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="itemMainPicUrl != null">
+        #{itemMainPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDispDetail != null">
+        #{itemDispDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample" resultType="java.lang.Long">
+    select count(*) from T0105_SHOP_ITEM
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update T0105_SHOP_ITEM
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null">
+        SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderIndex != null">
+        ORDER_INDEX = #{record.orderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemName != null">
+        ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemPrice != null">
+        ITEM_PRICE = #{record.itemPrice,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemDescr != null">
+        ITEM_DESCR = #{record.itemDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemMainPicUrl != null">
+        ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.itemDispDetail != null">
+        ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update T0105_SHOP_ITEM
+    set ID = #{record.id,jdbcType=INTEGER},
+      SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      ORDER_INDEX = #{record.orderIndex,jdbcType=INTEGER},
+      ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      ITEM_PRICE = #{record.itemPrice,jdbcType=INTEGER},
+      ITEM_DESCR = #{record.itemDescr,jdbcType=VARCHAR},
+      ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR},
+      ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update T0105_SHOP_ITEM
+    set ID = #{record.id,jdbcType=INTEGER},
+      SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      ORDER_INDEX = #{record.orderIndex,jdbcType=INTEGER},
+      ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
+      ITEM_PRICE = #{record.itemPrice,jdbcType=INTEGER},
+      ITEM_DESCR = #{record.itemDescr,jdbcType=VARCHAR},
+      ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odiy.domain.mapper.j99.model.ShopItem">
+    update T0105_SHOP_ITEM
+    <set>
+      <if test="shopId != null">
+        SHOP_ID = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="orderIndex != null">
+        ORDER_INDEX = #{orderIndex,jdbcType=INTEGER},
+      </if>
+      <if test="itemName != null">
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="itemPrice != null">
+        ITEM_PRICE = #{itemPrice,jdbcType=INTEGER},
+      </if>
+      <if test="itemDescr != null">
+        ITEM_DESCR = #{itemDescr,jdbcType=VARCHAR},
+      </if>
+      <if test="itemMainPicUrl != null">
+        ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="itemDispDetail != null">
+        ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.odiy.domain.mapper.j99.model.ShopItem">
+    update T0105_SHOP_ITEM
+    set SHOP_ID = #{shopId,jdbcType=INTEGER},
+      ORDER_INDEX = #{orderIndex,jdbcType=INTEGER},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_PRICE = #{itemPrice,jdbcType=INTEGER},
+      ITEM_DESCR = #{itemDescr,jdbcType=VARCHAR},
+      ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR},
+      ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.ShopItem">
+    update T0105_SHOP_ITEM
+    set SHOP_ID = #{shopId,jdbcType=INTEGER},
+      ORDER_INDEX = #{orderIndex,jdbcType=INTEGER},
+      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      ITEM_PRICE = #{itemPrice,jdbcType=INTEGER},
+      ITEM_DESCR = #{itemDescr,jdbcType=VARCHAR},
+      ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

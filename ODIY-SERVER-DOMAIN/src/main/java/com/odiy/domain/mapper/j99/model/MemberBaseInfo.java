@@ -18,10 +18,6 @@ public class MemberBaseInfo implements Serializable {
     private String memberStaus;
 
     private String memberPassword;
-    
-    public void init() {
-    	
-    }
 
     private static final long serialVersionUID = 1L;
 }
