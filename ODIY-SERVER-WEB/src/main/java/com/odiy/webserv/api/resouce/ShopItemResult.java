@@ -8,9 +8,9 @@ import lombok.Data;
 public class ShopItemResult {
 	
     private Integer id;
-//
-//    private Integer shopId;
-//
+
+    private Integer shopId;
+
 //    private Integer orderIndex;
 
     private String itemName;

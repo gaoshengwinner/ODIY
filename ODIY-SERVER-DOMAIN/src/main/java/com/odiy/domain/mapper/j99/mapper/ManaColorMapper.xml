@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.odiy.domain.mapper.j99.mapper.ManaColorMapper">
+  <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.ManaColor">
+    <id column="TEMP_ID" jdbcType="INTEGER" property="tempId" />
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <id column="SHOP_ID" jdbcType="INTEGER" property="shopId" />
+    <result column="NAME" jdbcType="VARCHAR" property="name" />
+    <result column="IS_USE" jdbcType="TINYINT" property="isUse" />
+    <result column="RED" jdbcType="DOUBLE" property="red" />
+    <result column="GREEN" jdbcType="DOUBLE" property="green" />
+    <result column="BLUE" jdbcType="DOUBLE" property="blue" />
+    <result column="OPACITY" jdbcType="DOUBLE" property="opacity" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    TEMP_ID, ID, SHOP_ID, NAME, IS_USE, RED, GREEN, BLUE, OPACITY
+  </sql>
+  <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.ManaColorExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TC050_MANA_COLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from TC050_MANA_COLOR
+    where TEMP_ID = #{tempId,jdbcType=INTEGER}
+      and ID = #{id,jdbcType=INTEGER}
+      and SHOP_ID = #{shopId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from TC050_MANA_COLOR
+    where TEMP_ID = #{tempId,jdbcType=INTEGER}
+      and ID = #{id,jdbcType=INTEGER}
+      and SHOP_ID = #{shopId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.odiy.domain.mapper.j99.model.ManaColorExample">
+    delete from TC050_MANA_COLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.odiy.domain.mapper.j99.model.ManaColor">
+    insert into TC050_MANA_COLOR (TEMP_ID, ID, SHOP_ID, 
+      NAME, IS_USE, RED, GREEN, 
+      BLUE, OPACITY)
+    values (#{tempId,jdbcType=INTEGER}, #{id,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, 
+      #{name,jdbcType=VARCHAR}, #{isUse,jdbcType=TINYINT}, #{red,jdbcType=DOUBLE}, #{green,jdbcType=DOUBLE}, 
+      #{blue,jdbcType=DOUBLE}, #{opacity,jdbcType=DOUBLE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.odiy.domain.mapper.j99.model.ManaColor">
+    insert into TC050_MANA_COLOR
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tempId != null">
+        TEMP_ID,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="shopId != null">
+        SHOP_ID,
+      </if>
+      <if test="name != null">
+        NAME,
+      </if>
+      <if test="isUse != null">
+        IS_USE,
+      </if>
+      <if test="red != null">
+        RED,
+      </if>
+      <if test="green != null">
+        GREEN,
+      </if>
+      <if test="blue != null">
+        BLUE,
+      </if>
+      <if test="opacity != null">
+        OPACITY,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tempId != null">
+        #{tempId,jdbcType=INTEGER},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null">
+        #{isUse,jdbcType=TINYINT},
+      </if>
+      <if test="red != null">
+        #{red,jdbcType=DOUBLE},
+      </if>
+      <if test="green != null">
+        #{green,jdbcType=DOUBLE},
+      </if>
+      <if test="blue != null">
+        #{blue,jdbcType=DOUBLE},
+      </if>
+      <if test="opacity != null">
+        #{opacity,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.odiy.domain.mapper.j99.model.ManaColorExample" resultType="java.lang.Long">
+    select count(*) from TC050_MANA_COLOR
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update TC050_MANA_COLOR
+    <set>
+      <if test="record.tempId != null">
+        TEMP_ID = #{record.tempId,jdbcType=INTEGER},
+      </if>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopId != null">
+        SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        NAME = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUse != null">
+        IS_USE = #{record.isUse,jdbcType=TINYINT},
+      </if>
+      <if test="record.red != null">
+        RED = #{record.red,jdbcType=DOUBLE},
+      </if>
+      <if test="record.green != null">
+        GREEN = #{record.green,jdbcType=DOUBLE},
+      </if>
+      <if test="record.blue != null">
+        BLUE = #{record.blue,jdbcType=DOUBLE},
+      </if>
+      <if test="record.opacity != null">
+        OPACITY = #{record.opacity,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update TC050_MANA_COLOR
+    set TEMP_ID = #{record.tempId,jdbcType=INTEGER},
+      ID = #{record.id,jdbcType=INTEGER},
+      SHOP_ID = #{record.shopId,jdbcType=INTEGER},
+      NAME = #{record.name,jdbcType=VARCHAR},
+      IS_USE = #{record.isUse,jdbcType=TINYINT},
+      RED = #{record.red,jdbcType=DOUBLE},
+      GREEN = #{record.green,jdbcType=DOUBLE},
+      BLUE = #{record.blue,jdbcType=DOUBLE},
+      OPACITY = #{record.opacity,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.odiy.domain.mapper.j99.model.ManaColor">
+    update TC050_MANA_COLOR
+    <set>
+      <if test="name != null">
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="isUse != null">
+        IS_USE = #{isUse,jdbcType=TINYINT},
+      </if>
+      <if test="red != null">
+        RED = #{red,jdbcType=DOUBLE},
+      </if>
+      <if test="green != null">
+        GREEN = #{green,jdbcType=DOUBLE},
+      </if>
+      <if test="blue != null">
+        BLUE = #{blue,jdbcType=DOUBLE},
+      </if>
+      <if test="opacity != null">
+        OPACITY = #{opacity,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where TEMP_ID = #{tempId,jdbcType=INTEGER}
+      and ID = #{id,jdbcType=INTEGER}
+      and SHOP_ID = #{shopId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.ManaColor">
+    update TC050_MANA_COLOR
+    set NAME = #{name,jdbcType=VARCHAR},
+      IS_USE = #{isUse,jdbcType=TINYINT},
+      RED = #{red,jdbcType=DOUBLE},
+      GREEN = #{green,jdbcType=DOUBLE},
+      BLUE = #{blue,jdbcType=DOUBLE},
+      OPACITY = #{opacity,jdbcType=DOUBLE}
+    where TEMP_ID = #{tempId,jdbcType=INTEGER}
+      and ID = #{id,jdbcType=INTEGER}
+      and SHOP_ID = #{shopId,jdbcType=INTEGER}
+  </update>
+</mapper>
