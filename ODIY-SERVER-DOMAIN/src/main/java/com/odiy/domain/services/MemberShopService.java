@@ -3,6 +3,7 @@ package com.odiy.domain.services;
 import java.util.List;
 
 import com.odiy.domain.mapper.j99.model.ManaColor;
+import com.odiy.domain.mapper.j99.model.OptionTemp;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopItem;
 import com.odiy.domain.mapper.j99.model.Tag;
@@ -31,5 +32,9 @@ public interface MemberShopService {
 	List<Tag> getTags(int memberID);
 
 	void setTags(int memberID, List<Tag> tags);
+	
+	List<OptionTemp> getOptinTemps(int memberID);
+
+	void setOptinTemps(int memberID, List<OptionTemp> tags);
 
 }

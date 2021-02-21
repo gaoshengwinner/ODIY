@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
- public class TagResult {
+public class OptionTempResult {
 	private int id;
-	private String data;
 	private String desc;
 	private Integer orders;
+	private Integer defComCount;
 
 	private String propertyString;
 }

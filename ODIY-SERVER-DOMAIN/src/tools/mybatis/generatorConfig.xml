@@ -104,6 +104,12 @@
 				sqlStatement="JDBC" identity="true" />
 		</table>
 		
+		<table tableName="TC0505_OPTION_TEMP"
+			domainObjectName="OptionTemp">
+			<generatedKey column="ID"
+				sqlStatement="JDBC" identity="true" />
+		</table>
+		
 		
 		<!-- TO delete j99 -->
 		

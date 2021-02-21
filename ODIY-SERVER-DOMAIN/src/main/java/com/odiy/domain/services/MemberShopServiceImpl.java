@@ -10,11 +10,14 @@ import org.springframework.util.StringUtils;
 
 import com.odiy.domain.mapper.common.CommonMapper;
 import com.odiy.domain.mapper.j99.mapper.ManaColorMapper;
+import com.odiy.domain.mapper.j99.mapper.OptionTempMapper;
 import com.odiy.domain.mapper.j99.mapper.ShopBaseInfoMapper;
 import com.odiy.domain.mapper.j99.mapper.ShopItemMapper;
 import com.odiy.domain.mapper.j99.mapper.TagMapper;
 import com.odiy.domain.mapper.j99.model.ManaColor;
 import com.odiy.domain.mapper.j99.model.ManaColorExample;
+import com.odiy.domain.mapper.j99.model.OptionTemp;
+import com.odiy.domain.mapper.j99.model.OptionTempExample;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfoExample;
 import com.odiy.domain.mapper.j99.model.ShopItem;
@@ -30,15 +33,18 @@ public class MemberShopServiceImpl implements MemberShopService {
 
 	@Inject
 	ShopItemMapper shopItemMapper;
-	
+
 	@Inject
-	ManaColorMapper  manaColorMapper;
-	
+	ManaColorMapper manaColorMapper;
+
 	@Inject
 	CommonMapper commonMapper;
-	
+
 	@Inject
 	TagMapper tagMapper;
+
+	@Inject
+	OptionTempMapper optionTempMapper;
 
 	@Override
 	public ShopBaseInfo createOrUpdateShopInfo(int memberID, ShopBaseInfo shopBaseInfo) {
@@ -93,7 +99,7 @@ public class MemberShopServiceImpl implements MemberShopService {
 		return shopItemMapper.selectByExample(example);
 
 	}
-	
+
 	@Override
 	public void deleteShopItem(int memberID, ShopItem shopItem) {
 		if (shopItem == null || shopItem.getId() == null) {
@@ -103,7 +109,7 @@ public class MemberShopServiceImpl implements MemberShopService {
 		if (shopBaseInfo == null) {
 			return;
 		}
-		
+
 		ShopItemExample example = new ShopItemExample();
 		example.createCriteria().andShopIdEqualTo(shopItem.getShopId()).andIdEqualTo(shopItem.getId());
 		shopItemMapper.deleteByExample(example);
@@ -144,7 +150,6 @@ public class MemberShopServiceImpl implements MemberShopService {
 			shopItemMapper.updateByPrimaryKey(update);
 		}
 
-
 		ShopItemExample example = new ShopItemExample();
 		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
 		example.setOrderByClause("ORDER_INDEX");
@@ -160,24 +165,24 @@ public class MemberShopServiceImpl implements MemberShopService {
 		}
 		ShopItemExample example = new ShopItemExample();
 		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
-		//example.setOrderByClause("ORDER_INDEX");
+		// example.setOrderByClause("ORDER_INDEX");
 		return shopItemMapper.selectByExample(example);
 	}
-	
+
 	@Override
-	public List<ManaColor> selectManaColor(int memberID){
+	public List<ManaColor> selectManaColor(int memberID) {
 		ShopBaseInfo shopBaseInfo = selectMemberShop(memberID);
 		if (shopBaseInfo == null) {
 			return null;
 		}
 		ManaColorExample example = new ManaColorExample();
 		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
-		//example.setOrderByClause("ID");
-		
+		// example.setOrderByClause("ID");
+
 		return manaColorMapper.selectByExample(example);
-		
+
 	}
-	
+
 	@Override
 	public ManaColor saveManaColor(int memberID, ManaColor manaColor) {
 		Integer tempId = 1; // TODO
@@ -185,30 +190,29 @@ public class MemberShopServiceImpl implements MemberShopService {
 		if (shopBaseInfo == null || manaColor == null) {
 			return null;
 		}
-		
+
 		ManaColorExample example = new ManaColorExample();
-		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId())
-		.andTempIdEqualTo(tempId)
-		.andIdEqualTo(manaColor.getId());
-		
-		List<ManaColor>  mcl = manaColorMapper.selectByExample(example);
-		
+		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId()).andTempIdEqualTo(tempId)
+				.andIdEqualTo(manaColor.getId());
+
+		List<ManaColor> mcl = manaColorMapper.selectByExample(example);
+
 		if (manaColor.getId() != null && mcl.size() > 0) {
 			manaColor.setShopId(shopBaseInfo.getShopId());
 			manaColorMapper.updateByPrimaryKey(manaColor);
-			
+
 		} else {
 			final Integer id = commonMapper.getMaxManaColorID(tempId, shopBaseInfo.getShopId());
-			manaColor.setId(id == null ? 1  : id + 1);
+			manaColor.setId(id == null ? 1 : id + 1);
 			manaColor.setShopId(shopBaseInfo.getShopId());
 			manaColor.setTempId(tempId);
 			manaColorMapper.insert(manaColor);
-			
+
 		}
-		System.out.println(manaColor == null? "": manaColor.toString());
+		System.out.println(manaColor == null ? "" : manaColor.toString());
 		return manaColor;
 	}
-	
+
 	@Override
 	public void deleteManaColor(int memberID, ManaColor manaColor) {
 		Integer tempId = 1; // TODO
@@ -216,18 +220,18 @@ public class MemberShopServiceImpl implements MemberShopService {
 		if (shopBaseInfo == null || manaColor == null) {
 			return;
 		}
-		
+
 		ManaColorExample example = new ManaColorExample();
-		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId())
-		.andTempIdEqualTo(tempId)
-		.andIdEqualTo(manaColor.getId());
-		
+		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId()).andTempIdEqualTo(tempId)
+				.andIdEqualTo(manaColor.getId());
+
 		manaColorMapper.deleteByExample(example);
-		
+
 		return;
 	}
+
 	@Override
-	public List<Tag> getTags(int memberID){
+	public List<Tag> getTags(int memberID) {
 		ShopBaseInfo shopBaseInfo = selectMemberShop(memberID);
 		if (shopBaseInfo == null) {
 			return null;
@@ -238,27 +242,118 @@ public class MemberShopServiceImpl implements MemberShopService {
 		example.setOrderByClause("ORDERS");
 		return tagMapper.selectByExample(example);
 	}
+
 	@Override
 	public void setTags(int memberID, List<Tag> tags) {
 		ShopBaseInfo shopBaseInfo = selectMemberShop(memberID);
 		if (shopBaseInfo == null) {
 			return;
 		}
-		
+
 		TagExample example = new TagExample();
 		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
-		
-		tagMapper.deleteByExample(example);
-		
-		int i=0;
-		for(Tag tag : tags) {
-			tag.setShopId(shopBaseInfo.getShopId());
-			tag.setId(null);
-			tag.setOrders(i++);
-			tagMapper.insert(tag);
+
+		List<Tag> dbtags = tagMapper.selectByExample(example);
+		if (tags == null || tags.size() == 0) {
+			tagMapper.deleteByExample(example);
+		} else {
+			if (dbtags != null && dbtags.size() > 0) {
+				for (Tag tagdb : dbtags) {
+					boolean have = false;
+					for (Tag tag : dbtags) {
+						if (tagdb.getId() == tag.getId()) {
+							have = true;
+							break;
+						}
+					}
+					if (!have) {
+						TagExample example2 = new TagExample();
+						example2.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId())
+								.andIdEqualTo(tagdb.getId());
+						tagMapper.deleteByExample(example2);
+					}
+
+				}
+			}
 		}
-		
+
+		int i = 0;
+		for (Tag tag : tags) {
+			tag.setShopId(shopBaseInfo.getShopId());
+			tag.setOrders(i++);
+			if (tag.getId() == null || tag.getId() == 0) {
+				tag.setId(null);
+				tagMapper.insert(tag);
+			} else {
+				TagExample example2 = new TagExample();
+				example2.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId()).andIdEqualTo(tag.getId());
+				tagMapper.updateByExample(tag, example2);
+			}
+		}
+
 	}
-	
+
+	@Override
+	public List<OptionTemp> getOptinTemps(int memberID) {
+		ShopBaseInfo shopBaseInfo = selectMemberShop(memberID);
+		if (shopBaseInfo == null) {
+			return null;
+		}
+
+		OptionTempExample example = new OptionTempExample();
+		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
+		example.setOrderByClause("ORDERS");
+		return optionTempMapper.selectByExample(example);
+	}
+
+	@Override
+	public void setOptinTemps(int memberID, List<OptionTemp> optionTemps) {
+		ShopBaseInfo shopBaseInfo = selectMemberShop(memberID);
+		if (shopBaseInfo == null) {
+			return;
+		}
+
+		OptionTempExample example = new OptionTempExample();
+		example.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId());
+
+		List<OptionTemp> dbots = optionTempMapper.selectByExample(example);
+		if (optionTemps == null || optionTemps.size() == 0) {
+			optionTempMapper.deleteByExample(example);
+		} else {
+			if (dbots != null && dbots.size() > 0) {
+				for (OptionTemp otdb : dbots) {
+					boolean have = false;
+					for (OptionTemp ot : dbots) {
+						if (otdb.getId() == ot.getId()) {
+							have = true;
+							break;
+						}
+					}
+					if (!have) {
+						OptionTempExample example2 = new OptionTempExample();
+						example2.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId()).andIdEqualTo(otdb.getId());
+						optionTempMapper.deleteByExample(example2);
+					}
+				}
+			}
+		}
+
+		int i = 0;
+		for (OptionTemp optionTemp : optionTemps) {
+			optionTemp.setShopId(shopBaseInfo.getShopId());
+
+			optionTemp.setOrders(i++);
+			if (optionTemp.getId() == null || optionTemp.getId() == 0) {
+				optionTemp.setId(null);
+				optionTempMapper.insert(optionTemp);
+			} else {
+				OptionTempExample example2 = new OptionTempExample();
+				example2.createCriteria().andShopIdEqualTo(shopBaseInfo.getShopId()).andIdEqualTo(optionTemp.getId());
+				optionTempMapper.updateByExample(optionTemp, example2);
+			}
+
+		}
+
+	}
 
 }

@@ -1,5 +1,7 @@
 package com.odiy.webserv.api.resouce;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,11 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
- public class TagResult {
-	private int id;
-	private String data;
-	private String desc;
-	private Integer orders;
+public class OptionTempResultList {
 
-	private String propertyString;
+	List<OptionTempResult> optionTempLst;
 }

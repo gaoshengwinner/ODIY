@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.odiy.domain.common.beans.UserInfo;
 import com.odiy.domain.common.exceptions.AuthotionException;
 import com.odiy.domain.mapper.j99.model.ManaColor;
+import com.odiy.domain.mapper.j99.model.OptionTemp;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopItem;
 import com.odiy.domain.mapper.j99.model.UserToken;
@@ -30,6 +31,8 @@ import com.odiy.webserv.api.resouce.ApiResultCommon;
 import com.odiy.webserv.api.resouce.LoginResult;
 import com.odiy.webserv.api.resouce.ManaColorResult;
 import com.odiy.webserv.api.resouce.ManaColorResult.MBColor;
+import com.odiy.webserv.api.resouce.OptionTempResult;
+import com.odiy.webserv.api.resouce.OptionTempResultList;
 import com.odiy.webserv.api.resouce.RefreshTokenResult;
 import com.odiy.webserv.api.resouce.ShopInfoRestResult;
 import com.odiy.webserv.api.resouce.ShopItemResult;
@@ -249,7 +252,7 @@ public class ManagRestController {
 		if (tags != null) {
 			for (Tag tag : tags) {
 				result.add(TagResult.builder().id(tag.getId()).data(tag.getData()).desc(tag.getDescr())
-						.propertyString(tag.getProperty()).build());
+						.propertyString(tag.getProperty()).orders(tag.getOrders()).build());
 
 			}
 		} else {
@@ -265,7 +268,11 @@ public class ManagRestController {
 		List<Tag> tags = new ArrayList<Tag>();
 		if (tagRs != null && tagRs.getTagLst() != null)
 		for (TagResult tgr : tagRs.getTagLst()) {
-			tags.add(Tag.builder().descr(tgr.getDesc()).data(tgr.getData()).property(tgr.getPropertyString()).build());
+			tags.add(Tag.builder()
+					.id(tgr.getId())
+					.descr(tgr.getDesc())
+					.data(tgr.getData())
+					.property(tgr.getPropertyString()).build());
 			
 
 		}
@@ -283,6 +290,60 @@ public class ManagRestController {
 			}
 		} else {
 			return new ArrayList<TagResult>();
+		}
+		return result;
+	}
+	
+
+	@RequestMapping(path = "/v1/api/manag/get_optiontemps")
+	public List<OptionTempResult> getOptionTemps(UserInfo userInfo) {
+		List<OptionTemp> optionTemps = memberShopService.getOptinTemps(userInfo.getMemberID());
+
+		List<OptionTempResult> result = new ArrayList<>();
+		if (optionTemps != null) {
+			for (OptionTemp optionTemp : optionTemps) {
+				result.add(OptionTempResult.builder()
+						.id(optionTemp.getId())
+						.desc(optionTemp.getDescr())
+						.propertyString(optionTemp.getProperty())
+						.orders(optionTemp.getOrders())
+						.defComCount(optionTemp.getDefComCount()).build());
+
+			}
+		} else {
+			return new ArrayList<OptionTempResult>();
+		}
+		return result;
+	}
+	
+	
+	@RequestMapping(path = "/v1/api/manag/save_optiontemps")
+	public List<OptionTempResult> saveOptionTemps(UserInfo userInfo, @RequestBody OptionTempResultList  optionTempRs) {
+		
+		List<OptionTemp> optionTemps = new ArrayList<>();
+		if (optionTempRs != null && optionTempRs.getOptionTempLst() != null)
+		for (OptionTempResult otgr : optionTempRs.getOptionTempLst()) {
+			optionTemps.add(OptionTemp.builder().descr(otgr.getDesc()).property(otgr.getPropertyString()).build());
+			
+
+		}
+		memberShopService.setOptinTemps(userInfo.getMemberID(), optionTemps);
+		
+		optionTemps = memberShopService.getOptinTemps(userInfo.getMemberID());
+
+		List<OptionTempResult> result = new ArrayList<>();
+		if (optionTemps != null) {
+			for (OptionTemp optionTemp : optionTemps) {
+				result.add(OptionTempResult.builder()
+						.id(optionTemp.getId())
+						.desc(optionTemp.getDescr())
+						.propertyString(optionTemp.getProperty())
+						.orders(optionTemp.getOrders())
+						.defComCount(optionTemp.getDefComCount()).build());
+
+			}
+		} else {
+			return new ArrayList<OptionTempResult>();
 		}
 		return result;
 	}
