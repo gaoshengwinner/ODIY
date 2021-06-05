@@ -86,7 +86,7 @@ public class MemberRegistController {
 		}
 		try {
 			// 確認コード送信
-			final MailCodeCf mailCodeCf = MailCodeCf.getInstance(form.getMemberEmail(), form.getMemberPassword());
+			final MailCodeCf mailCodeCf = MailCodeCf.getInstance(form.getMemberEmail(), form.getMemberPassword(), "fbmbservice@yahoo.com");
 			session.setAttribute(MailCodeCf.SESSION_KEY, mailCodeCf);
 			log.info("確認コード:" + mailCodeCf.getCode());
 			mailUtils.sendEmailCodeCFEmail(mailCodeCf);

@@ -13,7 +13,7 @@ public class MailUtilsImpl implements MailUtils {
 	@Override
 	public void sendEmailCodeCFEmail(MailCodeCf mailCodeCf) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("gaoshengwinner@gmail.com");
+		message.setFrom(mailCodeCf.getSendFrom());
 		message.setTo(mailCodeCf.getMemberEmail());
 		message.setSubject("主题：简单邮件");
 		message.setText("测试邮件内容:" + mailCodeCf.getCode());

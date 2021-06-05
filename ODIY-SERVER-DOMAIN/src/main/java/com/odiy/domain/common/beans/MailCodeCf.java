@@ -11,6 +11,8 @@ public class MailCodeCf {
 	public static String SESSION_KEY = "MAIL_CODE_KEY";
 	public static int MAX_PREM_COUNT = 5;
 	private String memberEmail;
+	
+	private String sendFrom;
 
 	private String password;
 
@@ -18,9 +20,9 @@ public class MailCodeCf {
 
 	private int errcount;
 
-	public static MailCodeCf getInstance(String memberEmail, String password) {
+	public static MailCodeCf getInstance(String memberEmail, String password, String sendFrom) {
 		String code = getRandomString(6);
-		return MailCodeCf.builder().code(code).memberEmail(memberEmail).password(password).errcount(0).build();
+		return MailCodeCf.builder().code(code).memberEmail(memberEmail).password(password).sendFrom(sendFrom).errcount(0).build();
 	}
 
 	public boolean isOKCode(String code) {
