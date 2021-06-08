@@ -1,0 +1,5 @@
+spring:
+  account:
+    check:
+      mailaddr:bmbservice@yahoo.com
+      mailps:tod
