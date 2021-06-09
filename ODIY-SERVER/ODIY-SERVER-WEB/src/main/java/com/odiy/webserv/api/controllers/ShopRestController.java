@@ -1,7 +1,6 @@
 package com.odiy.webserv.api.controllers;
 
 import java.util.Arrays;
-import java.util.HashMap;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

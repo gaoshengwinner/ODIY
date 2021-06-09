@@ -3,8 +3,6 @@ package com.odiy.webserv.api.resouce;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.odiy.webserv.api.resouce.LoginResult.ErrInfo;
-
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;

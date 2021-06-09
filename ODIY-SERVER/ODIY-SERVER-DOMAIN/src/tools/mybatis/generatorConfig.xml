@@ -113,6 +113,10 @@
 				sqlStatement="JDBC" identity="true" />
 		</table>
 		
+		<table tableName="TA9901_TEMP_INFO"
+			domainObjectName="TempInfo">
+		</table>
+		
 		
 		<!-- TO delete j99 -->
 		

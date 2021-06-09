@@ -7,7 +7,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -22,15 +21,14 @@ import com.odiy.domain.mapper.j99.model.ManaColor;
 import com.odiy.domain.mapper.j99.model.OptionTemp;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopItem;
+import com.odiy.domain.mapper.j99.model.Tag;
 import com.odiy.domain.mapper.j99.model.UserToken;
 import com.odiy.domain.services.MemberRegistService;
 import com.odiy.domain.services.MemberRegistServiceImpl;
 import com.odiy.domain.services.MemberShopService;
 import com.odiy.webserv.api.resouce.ApiResult;
 import com.odiy.webserv.api.resouce.ApiResultCommon;
-import com.odiy.webserv.api.resouce.LoginResult;
 import com.odiy.webserv.api.resouce.ManaColorResult;
-import com.odiy.webserv.api.resouce.ManaColorResult.MBColor;
 import com.odiy.webserv.api.resouce.OptionTempResult;
 import com.odiy.webserv.api.resouce.OptionTempResultList;
 import com.odiy.webserv.api.resouce.RefreshTokenResult;
@@ -40,8 +38,6 @@ import com.odiy.webserv.api.resouce.TagResult;
 import com.odiy.webserv.api.resouce.TagResultList;
 
 import lombok.extern.slf4j.Slf4j;
-
-import com.odiy.domain.mapper.j99.model.Tag;
 
 @Slf4j
 @RestController

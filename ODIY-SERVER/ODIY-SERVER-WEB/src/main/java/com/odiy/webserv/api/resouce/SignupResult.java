@@ -16,7 +16,7 @@ public class SignupResult implements Serializable {
 
 	private String statu;
 	
-	private String code;
+	private String uuid;
 	
 	List<ErrInfo> errs;
 	

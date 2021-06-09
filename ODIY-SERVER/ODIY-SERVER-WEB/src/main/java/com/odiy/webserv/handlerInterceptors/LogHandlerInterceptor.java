@@ -1,7 +1,5 @@
 package com.odiy.webserv.handlerInterceptors;
 
-import java.lang.invoke.MethodHandle;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

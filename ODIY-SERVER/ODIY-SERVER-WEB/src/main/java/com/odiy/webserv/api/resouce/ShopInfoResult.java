@@ -88,10 +88,6 @@ public class ShopInfoResult {
 		
 		public static String PCPT_BACKGROUND_COLOR = "backgroundColor";
 		
-		
-		
-		private String backgroundColor;
-		
 	
 	}
 	

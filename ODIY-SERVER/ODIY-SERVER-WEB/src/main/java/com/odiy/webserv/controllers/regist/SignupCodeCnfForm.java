@@ -9,4 +9,8 @@ public class SignupCodeCnfForm {
 
 	@NotBlank(message = "コードを入力ください。")
     private String code;
+	
+	@NotBlank(message = "最初からにしてください。")
+	private String uuid;
+	
 }

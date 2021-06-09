@@ -1,8 +1,7 @@
 package com.odiy.domain.services;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,8 +47,15 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 
 	@Override
 	public void resigtMemberByMail(String memberEmail, String memberPassword) {
+		try {
 		memberBaseInfoMapper.insert(MemberBaseInfo.builder().memberEmail(memberEmail.toLowerCase())
 				.memberStaus(MemberStaus.OK.getValue()).memberPassword(passwordEncoder.encode(memberPassword)).build());
+		} catch (Exception e) {
+			if (e instanceof SQLIntegrityConstraintViolationException) {	
+			} else {
+				throw e;
+			}
+		}
 	}
 
 	@Override
