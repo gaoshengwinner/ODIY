@@ -1,6 +1,5 @@
 package com.odiy.webserv.api.controllers;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -25,6 +24,7 @@ import com.odiy.domain.services.CommonService;
 import com.odiy.domain.services.MemberRegistService;
 import com.odiy.domain.services.MemberRegistServiceImpl;
 import com.odiy.webserv.api.resouce.LoginResult;
+import com.odiy.webserv.api.resouce.RestPasswordResult;
 import com.odiy.webserv.api.resouce.SignupResult;
 import com.odiy.webserv.controllers.regist.MemgerLoginForm;
 import com.odiy.webserv.controllers.regist.SignupCnfForm;
@@ -167,5 +167,89 @@ public class MemberRestLoginController {
 
 		return SignupResult.builder().statu("0").build();
 	}
+	
+	@RequestMapping(path = "/v1/api/resetPassword/resetPasswordMailCnf")
+	public RestPasswordResult resetPasswordMailCnf(@RequestBody @Validated SignupCnfForm form, BindingResult rs,
+			HttpServletResponse response, HttpSession session) {
+		log.info("start");
+		if (rs.hasErrors()) {
+			final RestPasswordResult r = RestPasswordResult.builder().statu("-1").build();
+			// log.warn(rs.getAllErrors().toString());
+			rs.getAllErrors().forEach(ob -> {
+				r.addErrInfo(((FieldError) ob).getField(), ob.getDefaultMessage());
+			});
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return r;
 
+		}
+
+		final boolean result = memberRegistService.checkMemberMailExist(form.getMemberEmail());
+		if (!result) {
+			return RestPasswordResult.builder().statu("-1").build().addErrInfo("memberEmail","メールアドレスは正しくありません。");
+		}
+
+		try {
+			// 確認コード送信
+			final MailCodeCf mailCodeCf = MailCodeCf.getInstance(form.getMemberEmail(), null, "fbmbservice@yahoo.com");
+			log.info("確認コード:" + mailCodeCf.getCode());
+			final String uuid = UUID.randomUUID().toString();
+			commonService.saveTempInfo(TempInfoType.MailCode, uuid, mailCodeCf.getCode());
+			mailUtils.sendEmailCodeCFEmail(mailCodeCf);
+			return RestPasswordResult.builder().statu("0").uuid(uuid).build();
+		} catch (Exception e) {
+			log.warn(e.toString());
+			return RestPasswordResult.builder().statu("-1").build().addErrInfo("memberEmail",
+					"システムエラー発生しました、しばらく後に再確認してください。");
+		}
+	}
+	@RequestMapping(path = "/v1/api/resetPassword/resetPasswordCodeCnf")
+	public RestPasswordResult resetPasswordCodeCnf(@RequestBody @Validated SignupCodeCnfForm form, BindingResult rs,
+			HttpServletResponse response, HttpSession session) {
+		log.info("start");
+		if (rs.hasErrors()) {
+			final RestPasswordResult r = RestPasswordResult.builder().statu("-1").build();
+			rs.getAllErrors().forEach(ob -> {
+				r.addErrInfo(((FieldError) ob).getField(), ob.getDefaultMessage());
+			});
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return r;
+
+		}
+
+		final boolean result = commonService.checkTempInfoValue(TempInfoType.MailCode, form.getUuid(), form.getCode());
+
+		if (result) {
+			final String uuid = UUID.randomUUID().toString();
+			commonService.saveTempInfo(TempInfoType.UUID, uuid, "");
+			return RestPasswordResult.builder().statu("0").uuid(uuid).build();
+		}
+
+		return RestPasswordResult.builder().statu("-1").build().addErrInfo("code", result ? "" : "コードは正しくありません。");
+	}
+	
+	
+	@RequestMapping(path = "/v1/api/resetPassword/resetPassword")
+	public RestPasswordResult resetPassword(@RequestBody @Validated SignupForm form, BindingResult rs, HttpServletResponse response,
+			HttpSession session) {
+		log.info("start");
+		if (rs.hasErrors()) {
+			final RestPasswordResult r = RestPasswordResult.builder().statu("-1").build();
+			rs.getAllErrors().forEach(ob -> {
+				r.addErrInfo(((FieldError) ob).getField(), ob.getDefaultMessage());
+			});
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return r;
+
+		}
+
+		final boolean result = commonService.checkTempInfoValue(TempInfoType.MailCode, form.getUuid(), "");
+
+		if (!result) {
+			return RestPasswordResult.builder().statu("-1").build().addErrInfo("password", result ? "" : "最初から直してください。");
+		}
+
+		memberRegistService.restPasswordByMail(form.getMemberEmail(), form.getMemberPassword());
+
+		return RestPasswordResult.builder().statu("0").build();
+	}
 }

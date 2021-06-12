@@ -3,11 +3,11 @@
 <mapper namespace="com.odiy.domain.mapper.j99.mapper.MemberBaseInfoMapper">
   <resultMap id="BaseResultMap" type="com.odiy.domain.mapper.j99.model.MemberBaseInfo">
     <id column="MEMBER_ID" jdbcType="INTEGER" property="memberId" />
-    <result column="MEMBER_PHONE_NO" jdbcType="CHAR" property="memberPhoneNo" />
+    <result column="MEMBER_PHONE_NO" jdbcType="VARCHAR" property="memberPhoneNo" />
     <result column="MEMBER_PHONE_4BIT" jdbcType="VARCHAR" property="memberPhone4bit" />
     <result column="MEMBER_EMAIL" jdbcType="VARCHAR" property="memberEmail" />
     <result column="MEMBER_STAUS" jdbcType="CHAR" property="memberStaus" />
-    <result column="MEMBER_PASSWORD" jdbcType="CHAR" property="memberPassword" />
+    <result column="MEMBER_PASSWORD" jdbcType="VARCHAR" property="memberPassword" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -103,8 +103,8 @@
   <insert id="insert" keyColumn="MEMBER_ID" keyProperty="memberId" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo" useGeneratedKeys="true">
     insert into T0201_MEMBER_BASE_INFO (MEMBER_PHONE_NO, MEMBER_PHONE_4BIT, MEMBER_EMAIL, 
       MEMBER_STAUS, MEMBER_PASSWORD)
-    values (#{memberPhoneNo,jdbcType=CHAR}, #{memberPhone4bit,jdbcType=VARCHAR}, #{memberEmail,jdbcType=VARCHAR}, 
-      #{memberStaus,jdbcType=CHAR}, #{memberPassword,jdbcType=CHAR})
+    values (#{memberPhoneNo,jdbcType=VARCHAR}, #{memberPhone4bit,jdbcType=VARCHAR}, #{memberEmail,jdbcType=VARCHAR}, 
+      #{memberStaus,jdbcType=CHAR}, #{memberPassword,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="MEMBER_ID" keyProperty="memberId" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo" useGeneratedKeys="true">
     insert into T0201_MEMBER_BASE_INFO
@@ -127,7 +127,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="memberPhoneNo != null">
-        #{memberPhoneNo,jdbcType=CHAR},
+        #{memberPhoneNo,jdbcType=VARCHAR},
       </if>
       <if test="memberPhone4bit != null">
         #{memberPhone4bit,jdbcType=VARCHAR},
@@ -139,7 +139,7 @@
         #{memberStaus,jdbcType=CHAR},
       </if>
       <if test="memberPassword != null">
-        #{memberPassword,jdbcType=CHAR},
+        #{memberPassword,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,7 +156,7 @@
         MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
       </if>
       <if test="record.memberPhoneNo != null">
-        MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=CHAR},
+        MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=VARCHAR},
       </if>
       <if test="record.memberPhone4bit != null">
         MEMBER_PHONE_4BIT = #{record.memberPhone4bit,jdbcType=VARCHAR},
@@ -168,7 +168,7 @@
         MEMBER_STAUS = #{record.memberStaus,jdbcType=CHAR},
       </if>
       <if test="record.memberPassword != null">
-        MEMBER_PASSWORD = #{record.memberPassword,jdbcType=CHAR},
+        MEMBER_PASSWORD = #{record.memberPassword,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -178,11 +178,11 @@
   <update id="updateByExample" parameterType="map">
     update T0201_MEMBER_BASE_INFO
     set MEMBER_ID = #{record.memberId,jdbcType=INTEGER},
-      MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=CHAR},
+      MEMBER_PHONE_NO = #{record.memberPhoneNo,jdbcType=VARCHAR},
       MEMBER_PHONE_4BIT = #{record.memberPhone4bit,jdbcType=VARCHAR},
       MEMBER_EMAIL = #{record.memberEmail,jdbcType=VARCHAR},
       MEMBER_STAUS = #{record.memberStaus,jdbcType=CHAR},
-      MEMBER_PASSWORD = #{record.memberPassword,jdbcType=CHAR}
+      MEMBER_PASSWORD = #{record.memberPassword,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -191,7 +191,7 @@
     update T0201_MEMBER_BASE_INFO
     <set>
       <if test="memberPhoneNo != null">
-        MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=CHAR},
+        MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=VARCHAR},
       </if>
       <if test="memberPhone4bit != null">
         MEMBER_PHONE_4BIT = #{memberPhone4bit,jdbcType=VARCHAR},
@@ -203,18 +203,18 @@
         MEMBER_STAUS = #{memberStaus,jdbcType=CHAR},
       </if>
       <if test="memberPassword != null">
-        MEMBER_PASSWORD = #{memberPassword,jdbcType=CHAR},
+        MEMBER_PASSWORD = #{memberPassword,jdbcType=VARCHAR},
       </if>
     </set>
     where MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.MemberBaseInfo">
     update T0201_MEMBER_BASE_INFO
-    set MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=CHAR},
+    set MEMBER_PHONE_NO = #{memberPhoneNo,jdbcType=VARCHAR},
       MEMBER_PHONE_4BIT = #{memberPhone4bit,jdbcType=VARCHAR},
       MEMBER_EMAIL = #{memberEmail,jdbcType=VARCHAR},
       MEMBER_STAUS = #{memberStaus,jdbcType=CHAR},
-      MEMBER_PASSWORD = #{memberPassword,jdbcType=CHAR}
+      MEMBER_PASSWORD = #{memberPassword,jdbcType=VARCHAR}
     where MEMBER_ID = #{memberId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -20,4 +20,6 @@ public interface MemberRegistService {
 
 	UserToken getchUserTokenByAccessToken(String accessToken);
 
+	void restPasswordByMail(String memberEmail, String memberPassword);
+
 }

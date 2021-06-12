@@ -553,6 +553,76 @@ public class ShopItemExample {
             addCriterion("ITEM_MAIN_PIC_URL not between", value1, value2, "itemMainPicUrl");
             return (Criteria) this;
         }
+
+        public Criteria andItemDispDetailIsNull() {
+            addCriterion("ITEM_DISP_DETAIL is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailIsNotNull() {
+            addCriterion("ITEM_DISP_DETAIL is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailEqualTo(String value) {
+            addCriterion("ITEM_DISP_DETAIL =", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailNotEqualTo(String value) {
+            addCriterion("ITEM_DISP_DETAIL <>", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailGreaterThan(String value) {
+            addCriterion("ITEM_DISP_DETAIL >", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailGreaterThanOrEqualTo(String value) {
+            addCriterion("ITEM_DISP_DETAIL >=", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailLessThan(String value) {
+            addCriterion("ITEM_DISP_DETAIL <", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailLessThanOrEqualTo(String value) {
+            addCriterion("ITEM_DISP_DETAIL <=", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailLike(String value) {
+            addCriterion("ITEM_DISP_DETAIL like", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailNotLike(String value) {
+            addCriterion("ITEM_DISP_DETAIL not like", value, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailIn(List<String> values) {
+            addCriterion("ITEM_DISP_DETAIL in", values, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailNotIn(List<String> values) {
+            addCriterion("ITEM_DISP_DETAIL not in", values, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailBetween(String value1, String value2) {
+            addCriterion("ITEM_DISP_DETAIL between", value1, value2, "itemDispDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andItemDispDetailNotBetween(String value1, String value2) {
+            addCriterion("ITEM_DISP_DETAIL not between", value1, value2, "itemDispDetail");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

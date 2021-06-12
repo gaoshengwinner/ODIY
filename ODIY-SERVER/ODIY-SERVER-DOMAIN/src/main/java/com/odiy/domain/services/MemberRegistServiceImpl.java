@@ -39,7 +39,7 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 	public boolean checkMemberMailExist(String mail) {
 		MemberBaseInfoExample example = new MemberBaseInfoExample();
 		example.createCriteria().andMemberEmailEqualTo(mail.toLowerCase());
-	
+
 		List<MemberBaseInfo> result = memberBaseInfoMapper.selectByExample(example);
 
 		return result == null || result.size() <= 0 ? false : true;
@@ -48,14 +48,31 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 	@Override
 	public void resigtMemberByMail(String memberEmail, String memberPassword) {
 		try {
-		memberBaseInfoMapper.insert(MemberBaseInfo.builder().memberEmail(memberEmail.toLowerCase())
-				.memberStaus(MemberStaus.OK.getValue()).memberPassword(passwordEncoder.encode(memberPassword)).build());
+			memberBaseInfoMapper.insert(MemberBaseInfo.builder().memberEmail(memberEmail.toLowerCase())
+					.memberStaus(MemberStaus.OK.getValue()).memberPassword(passwordEncoder.encode(memberPassword))
+					.build());
 		} catch (Exception e) {
-			if (e instanceof SQLIntegrityConstraintViolationException) {	
+			if (e instanceof SQLIntegrityConstraintViolationException) {
 			} else {
 				throw e;
 			}
 		}
+	}
+
+	@Override
+	public void restPasswordByMail(String memberEmail, String memberPassword) {
+
+		final MemberBaseInfoExample example = new MemberBaseInfoExample();
+		example.createCriteria().andMemberEmailEqualTo(memberEmail.toLowerCase());
+		List<MemberBaseInfo> result = memberBaseInfoMapper.selectByExample(example);
+		if (result == null || result.size() == 0) {
+			return;
+		}
+		final MemberBaseInfo memberBaseInfo = result.get(0);
+		memberBaseInfo.setMemberPassword(passwordEncoder.encode(memberPassword));
+
+		memberBaseInfoMapper.updateByExample(memberBaseInfo, example);
+
 	}
 
 	@Override
@@ -73,8 +90,7 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 		}
 
 		final UserToken userToken = UserToken.builder().memberId(result.get(0).getMemberId())
-				.accessToken(UUID.randomUUID().toString())
-				.deviceId(di.getDeviceId())
+				.accessToken(UUID.randomUUID().toString()).deviceId(di.getDeviceId())
 				.accessTokenLimit(LocalDateTime.now().plusSeconds(ACCCESSTOKENLIMIT)) // TODO
 				.refreshToken(UUID.randomUUID().toString())
 				.refreshTokenLimit(LocalDateTime.now().plusSeconds(REFRESHTOKENLIMIT)) // TODO
@@ -89,14 +105,14 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 		return userToken;
 
 	}
-	
+
 	@Override
 	public UserToken refreshToken(String refreshToken) throws AuthotionException {
 		// 存在チェック
 		UserTokenExample example = new UserTokenExample();
 		example.createCriteria().andRefreshTokenEqualTo(refreshToken);
 		List<UserToken> list = userTokenMapper.selectByExample(example);
-		
+
 		if (list == null || list.size() <= 0) {
 			throw new AuthotionException("トークン不正");
 		}
@@ -104,15 +120,15 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 		if (ut.getRefreshTokenLimit().isBefore(LocalDateTime.now())) {
 			throw new AuthotionException("トークン期限切れ");
 		}
-		
+
 		ut.setAccessToken(UUID.randomUUID().toString());
 		ut.setAccessTokenLimit(LocalDateTime.now().plusSeconds(ACCCESSTOKENLIMIT));
-		
+
 		userTokenMapper.updateByPrimaryKey(ut);
 		return ut;
-		
+
 	}
-	
+
 	@Override
 	public boolean checkAccessToken(String accessToken) {
 		UserTokenExample example = new UserTokenExample();
@@ -120,17 +136,16 @@ public class MemberRegistServiceImpl implements MemberRegistService {
 		List<UserToken> list = userTokenMapper.selectByExample(example);
 		return list != null && list.size() > 0 && list.get(0).getRefreshTokenLimit().isAfter(LocalDateTime.now());
 	}
-	
+
 	@Override
 	public UserToken getchUserTokenByAccessToken(String accessToken) {
 		UserTokenExample example = new UserTokenExample();
 		example.createCriteria().andAccessTokenEqualTo(accessToken);
 		List<UserToken> list = userTokenMapper.selectByExample(example);
-		if (list != null && list.size() > 0 ) {
+		if (list != null && list.size() > 0) {
 			return list.get(0);
 		}
 		return null;
 	}
-
 
 }

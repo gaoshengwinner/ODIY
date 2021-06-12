@@ -9,9 +9,7 @@
     <result column="ITEM_PRICE" jdbcType="INTEGER" property="itemPrice" />
     <result column="ITEM_DESCR" jdbcType="VARCHAR" property="itemDescr" />
     <result column="ITEM_MAIN_PIC_URL" jdbcType="VARCHAR" property="itemMainPicUrl" />
-  </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.odiy.domain.mapper.j99.model.ShopItem">
-    <result column="ITEM_DISP_DETAIL" jdbcType="LONGVARCHAR" property="itemDispDetail" />
+    <result column="ITEM_DISP_DETAIL" jdbcType="VARCHAR" property="itemDispDetail" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,27 +70,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    ID, SHOP_ID, ORDER_INDEX, ITEM_NAME, ITEM_PRICE, ITEM_DESCR, ITEM_MAIN_PIC_URL
+    ID, SHOP_ID, ORDER_INDEX, ITEM_NAME, ITEM_PRICE, ITEM_DESCR, ITEM_MAIN_PIC_URL, ITEM_DISP_DETAIL
   </sql>
-  <sql id="Blob_Column_List">
-    ITEM_DISP_DETAIL
-  </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample" resultMap="ResultMapWithBLOBs">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from T0105_SHOP_ITEM
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByExample" parameterType="com.odiy.domain.mapper.j99.model.ShopItemExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -107,11 +86,9 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from T0105_SHOP_ITEM
     where ID = #{id,jdbcType=INTEGER}
   </select>
@@ -131,7 +108,7 @@
       ITEM_DISP_DETAIL)
     values (#{shopId,jdbcType=INTEGER}, #{orderIndex,jdbcType=INTEGER}, #{itemName,jdbcType=VARCHAR}, 
       #{itemPrice,jdbcType=INTEGER}, #{itemDescr,jdbcType=VARCHAR}, #{itemMainPicUrl,jdbcType=VARCHAR}, 
-      #{itemDispDetail,jdbcType=LONGVARCHAR})
+      #{itemDispDetail,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="ID" keyProperty="id" parameterType="com.odiy.domain.mapper.j99.model.ShopItem" useGeneratedKeys="true">
     insert into T0105_SHOP_ITEM
@@ -178,7 +155,7 @@
         #{itemMainPicUrl,jdbcType=VARCHAR},
       </if>
       <if test="itemDispDetail != null">
-        #{itemDispDetail,jdbcType=LONGVARCHAR},
+        #{itemDispDetail,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -213,23 +190,9 @@
         ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR},
       </if>
       <if test="record.itemDispDetail != null">
-        ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=LONGVARCHAR},
+        ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map">
-    update T0105_SHOP_ITEM
-    set ID = #{record.id,jdbcType=INTEGER},
-      SHOP_ID = #{record.shopId,jdbcType=INTEGER},
-      ORDER_INDEX = #{record.orderIndex,jdbcType=INTEGER},
-      ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
-      ITEM_PRICE = #{record.itemPrice,jdbcType=INTEGER},
-      ITEM_DESCR = #{record.itemDescr,jdbcType=VARCHAR},
-      ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR},
-      ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -242,7 +205,8 @@
       ITEM_NAME = #{record.itemName,jdbcType=VARCHAR},
       ITEM_PRICE = #{record.itemPrice,jdbcType=INTEGER},
       ITEM_DESCR = #{record.itemDescr,jdbcType=VARCHAR},
-      ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR}
+      ITEM_MAIN_PIC_URL = #{record.itemMainPicUrl,jdbcType=VARCHAR},
+      ITEM_DISP_DETAIL = #{record.itemDispDetail,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -269,20 +233,9 @@
         ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR},
       </if>
       <if test="itemDispDetail != null">
-        ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=LONGVARCHAR},
+        ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=VARCHAR},
       </if>
     </set>
-    where ID = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.odiy.domain.mapper.j99.model.ShopItem">
-    update T0105_SHOP_ITEM
-    set SHOP_ID = #{shopId,jdbcType=INTEGER},
-      ORDER_INDEX = #{orderIndex,jdbcType=INTEGER},
-      ITEM_NAME = #{itemName,jdbcType=VARCHAR},
-      ITEM_PRICE = #{itemPrice,jdbcType=INTEGER},
-      ITEM_DESCR = #{itemDescr,jdbcType=VARCHAR},
-      ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR},
-      ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.odiy.domain.mapper.j99.model.ShopItem">
@@ -292,7 +245,8 @@
       ITEM_NAME = #{itemName,jdbcType=VARCHAR},
       ITEM_PRICE = #{itemPrice,jdbcType=INTEGER},
       ITEM_DESCR = #{itemDescr,jdbcType=VARCHAR},
-      ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR}
+      ITEM_MAIN_PIC_URL = #{itemMainPicUrl,jdbcType=VARCHAR},
+      ITEM_DISP_DETAIL = #{itemDispDetail,jdbcType=VARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

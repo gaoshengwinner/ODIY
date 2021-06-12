@@ -16,21 +16,15 @@ public interface ShopItemMapper {
 
     int insertSelective(ShopItem record);
 
-    List<ShopItem> selectByExampleWithBLOBs(ShopItemExample example);
-
     List<ShopItem> selectByExample(ShopItemExample example);
 
     ShopItem selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") ShopItem record, @Param("example") ShopItemExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") ShopItem record, @Param("example") ShopItemExample example);
-
     int updateByExample(@Param("record") ShopItem record, @Param("example") ShopItemExample example);
 
     int updateByPrimaryKeySelective(ShopItem record);
-
-    int updateByPrimaryKeyWithBLOBs(ShopItem record);
 
     int updateByPrimaryKey(ShopItem record);
 }
