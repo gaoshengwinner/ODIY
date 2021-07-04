@@ -116,7 +116,10 @@
 		<table tableName="TA9901_TEMP_INFO"
 			domainObjectName="TempInfo">
 		</table>
-		
+		<table tableName="T0102_SHOP_ADDITION_INFO"
+			domainObjectName="ShopAdditionInfo">
+			<columnOverride column="value" jdbcType="VARCHAR"></columnOverride>
+		</table>
 		
 		<!-- TO delete j99 -->
 		

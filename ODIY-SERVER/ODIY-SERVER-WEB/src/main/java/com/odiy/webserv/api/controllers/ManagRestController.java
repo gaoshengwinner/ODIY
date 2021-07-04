@@ -3,10 +3,12 @@ package com.odiy.webserv.api.controllers;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -19,6 +21,7 @@ import com.odiy.domain.common.beans.UserInfo;
 import com.odiy.domain.common.exceptions.AuthotionException;
 import com.odiy.domain.mapper.j99.model.ManaColor;
 import com.odiy.domain.mapper.j99.model.OptionTemp;
+import com.odiy.domain.mapper.j99.model.ShopAdditionInfo;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopItem;
 import com.odiy.domain.mapper.j99.model.Tag;
@@ -26,6 +29,7 @@ import com.odiy.domain.mapper.j99.model.UserToken;
 import com.odiy.domain.services.MemberRegistService;
 import com.odiy.domain.services.MemberRegistServiceImpl;
 import com.odiy.domain.services.MemberShopService;
+import com.odiy.webserv.api.resouce.AdditionalMana;
 import com.odiy.webserv.api.resouce.ApiResult;
 import com.odiy.webserv.api.resouce.ApiResultCommon;
 import com.odiy.webserv.api.resouce.ManaColorResult;
@@ -70,14 +74,22 @@ public class ManagRestController {
 	@RequestMapping(path = "/v1/api/manag/shopInfo")
 	public ShopInfoRestResult getShopInfo(UserInfo userInfo) {
 
-		ShopBaseInfo shopBaseInfo = memberShopService.selectMemberShop(userInfo.getMemberID());
-
-		if (shopBaseInfo != null) {
-			return ShopInfoRestResult.builder().shopName(shopBaseInfo.getShopName())
-					.shopAddr(shopBaseInfo.getShopAddr()).shopTel(shopBaseInfo.getShopTel())
-					.shopPicUrl(shopBaseInfo.getShopPicUrl()).build();
+		Optional<ShopBaseInfo> shopBaseInfoOptional = Optional.ofNullable(memberShopService.selectMemberShop(userInfo.getMemberID()));
+		if (shopBaseInfoOptional.isEmpty()) {
+			return ShopInfoRestResult.builder().build();
 		}
-		return ShopInfoRestResult.builder().build();
+		ShopBaseInfo shopBaseInfo = shopBaseInfoOptional.get();
+		Optional<ShopAdditionInfo> shopAdditionInfoOptional = Optional.ofNullable(memberShopService.selecctShopAdditionInfo(shopBaseInfo.getShopId()));
+
+		ShopAdditionInfo shopAdditionInfo = shopAdditionInfoOptional.orElse(ShopAdditionInfo.builder()
+				.value(AdditionalMana.getDefaultAdditionMana())
+				.shopId(shopBaseInfo.getShopId())
+				.build());
+		
+		return ShopInfoRestResult.builder().shopName(shopBaseInfo.getShopName()).shopAddr(shopBaseInfo.getShopAddr())
+				.shopTel(shopBaseInfo.getShopTel()).shopPicUrl(shopBaseInfo.getShopPicUrl())
+				.additionInfo(shopAdditionInfo.getValue())
+				.additionVer(String.valueOf(shopAdditionInfo.getVer())).build();
 	}
 
 	@RequestMapping(path = "/v1/api/manag/save_shopInfo")
@@ -95,9 +107,14 @@ public class ManagRestController {
 
 		}
 
-		memberShopService.createOrUpdateShopInfo(userInfo.getMemberID(),
+		final ShopBaseInfo shopBaseInfo = memberShopService.createOrUpdateShopInfo(userInfo.getMemberID(),
 				ShopBaseInfo.builder().shopName(shopInfo.getShopName()).shopAddr(shopInfo.getShopAddr())
 						.shopTel(shopInfo.getShopTel()).shopPicUrl(shopInfo.getShopPicUrl()).build());
+		memberShopService.saveShopAdditionInfo(userInfo.getMemberID(), shopBaseInfo.getShopId(), ShopAdditionInfo.builder()
+				.shopId(shopBaseInfo.getShopId())
+				.value(shopInfo.getAdditionInfo())
+				.ver(StringUtils.isEmpty(shopInfo.getAdditionVer()) ? null : Integer.valueOf(shopInfo.getAdditionVer()) )
+				.build());
 
 		return ApiResult.builder().build();
 	}
@@ -256,26 +273,20 @@ public class ManagRestController {
 		}
 		return result;
 	}
-	
-	
+
 	@RequestMapping(path = "/v1/api/manag/save_tags")
-	public List<TagResult> saveTags(UserInfo userInfo, @RequestBody TagResultList  tagRs) {
-		
+	public List<TagResult> saveTags(UserInfo userInfo, @RequestBody TagResultList tagRs) {
+
 		List<Tag> tags = new ArrayList<Tag>();
 		if (tagRs != null && tagRs.getTagLst() != null)
-		for (TagResult tgr : tagRs.getTagLst()) {
-			tags.add(Tag.builder()
-					.id(tgr.getId())
-					.descr(tgr.getDesc())
-					.data(tgr.getData())
-					.property(tgr.getPropertyString()).build());
-			
+			for (TagResult tgr : tagRs.getTagLst()) {
+				tags.add(Tag.builder().id(tgr.getId()).descr(tgr.getDesc()).data(tgr.getData())
+						.property(tgr.getPropertyString()).build());
 
-		}
+			}
 		memberShopService.setTags(userInfo.getMemberID(), tags);
-		
-		tags = memberShopService.getTags(userInfo.getMemberID());
 
+		tags = memberShopService.getTags(userInfo.getMemberID());
 
 		List<TagResult> result = new ArrayList<>();
 		if (tags != null) {
@@ -289,7 +300,6 @@ public class ManagRestController {
 		}
 		return result;
 	}
-	
 
 	@RequestMapping(path = "/v1/api/manag/get_optiontemps")
 	public List<OptionTempResult> getOptionTemps(UserInfo userInfo) {
@@ -298,11 +308,8 @@ public class ManagRestController {
 		List<OptionTempResult> result = new ArrayList<>();
 		if (optionTemps != null) {
 			for (OptionTemp optionTemp : optionTemps) {
-				result.add(OptionTempResult.builder()
-						.id(optionTemp.getId())
-						.desc(optionTemp.getDescr())
-						.propertyString(optionTemp.getProperty())
-						.orders(optionTemp.getOrders())
+				result.add(OptionTempResult.builder().id(optionTemp.getId()).desc(optionTemp.getDescr())
+						.propertyString(optionTemp.getProperty()).orders(optionTemp.getOrders())
 						.defComCount(optionTemp.getDefComCount()).build());
 
 			}
@@ -311,30 +318,25 @@ public class ManagRestController {
 		}
 		return result;
 	}
-	
-	
+
 	@RequestMapping(path = "/v1/api/manag/save_optiontemps")
-	public List<OptionTempResult> saveOptionTemps(UserInfo userInfo, @RequestBody OptionTempResultList  optionTempRs) {
-		
+	public List<OptionTempResult> saveOptionTemps(UserInfo userInfo, @RequestBody OptionTempResultList optionTempRs) {
+
 		List<OptionTemp> optionTemps = new ArrayList<>();
 		if (optionTempRs != null && optionTempRs.getOptionTempLst() != null)
-		for (OptionTempResult otgr : optionTempRs.getOptionTempLst()) {
-			optionTemps.add(OptionTemp.builder().descr(otgr.getDesc()).property(otgr.getPropertyString()).build());
-			
+			for (OptionTempResult otgr : optionTempRs.getOptionTempLst()) {
+				optionTemps.add(OptionTemp.builder().descr(otgr.getDesc()).property(otgr.getPropertyString()).build());
 
-		}
+			}
 		memberShopService.setOptinTemps(userInfo.getMemberID(), optionTemps);
-		
+
 		optionTemps = memberShopService.getOptinTemps(userInfo.getMemberID());
 
 		List<OptionTempResult> result = new ArrayList<>();
 		if (optionTemps != null) {
 			for (OptionTemp optionTemp : optionTemps) {
-				result.add(OptionTempResult.builder()
-						.id(optionTemp.getId())
-						.desc(optionTemp.getDescr())
-						.propertyString(optionTemp.getProperty())
-						.orders(optionTemp.getOrders())
+				result.add(OptionTempResult.builder().id(optionTemp.getId()).desc(optionTemp.getDescr())
+						.propertyString(optionTemp.getProperty()).orders(optionTemp.getOrders())
 						.defComCount(optionTemp.getDefComCount()).build());
 
 			}
@@ -343,6 +345,5 @@ public class ManagRestController {
 		}
 		return result;
 	}
-	
 
 }

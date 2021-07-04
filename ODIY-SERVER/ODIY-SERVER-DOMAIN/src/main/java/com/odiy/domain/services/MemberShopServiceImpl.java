@@ -2,6 +2,7 @@ package com.odiy.domain.services;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -11,6 +12,7 @@ import org.springframework.util.StringUtils;
 import com.odiy.domain.mapper.common.CommonMapper;
 import com.odiy.domain.mapper.j99.mapper.ManaColorMapper;
 import com.odiy.domain.mapper.j99.mapper.OptionTempMapper;
+import com.odiy.domain.mapper.j99.mapper.ShopAdditionInfoMapper;
 import com.odiy.domain.mapper.j99.mapper.ShopBaseInfoMapper;
 import com.odiy.domain.mapper.j99.mapper.ShopItemMapper;
 import com.odiy.domain.mapper.j99.mapper.TagMapper;
@@ -18,6 +20,8 @@ import com.odiy.domain.mapper.j99.model.ManaColor;
 import com.odiy.domain.mapper.j99.model.ManaColorExample;
 import com.odiy.domain.mapper.j99.model.OptionTemp;
 import com.odiy.domain.mapper.j99.model.OptionTempExample;
+import com.odiy.domain.mapper.j99.model.ShopAdditionInfo;
+import com.odiy.domain.mapper.j99.model.ShopAdditionInfoExample;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfo;
 import com.odiy.domain.mapper.j99.model.ShopBaseInfoExample;
 import com.odiy.domain.mapper.j99.model.ShopItem;
@@ -30,6 +34,9 @@ public class MemberShopServiceImpl implements MemberShopService {
 
 	@Inject
 	ShopBaseInfoMapper shopBaseInfoMapper;
+	
+	@Inject
+	ShopAdditionInfoMapper shopAdditionInfoMapper;
 
 	@Inject
 	ShopItemMapper shopItemMapper;
@@ -74,7 +81,34 @@ public class MemberShopServiceImpl implements MemberShopService {
 
 		return list != null && list.size() > 0 ? list.get(0) : null;
 	}
+	
+	@Override
+	public ShopAdditionInfo selecctShopAdditionInfo(final Integer shopId) {
+		ShopAdditionInfoExample example = new ShopAdditionInfoExample();
+		example.createCriteria().andShopIdEqualTo(shopId);
+		example.setOrderByClause("VER DESC");
+		List<ShopAdditionInfo> result = shopAdditionInfoMapper.selectByExample(example);
+		return result != null && result.size() > 0 ?  result.get(0) : null;
+	}
 
+	@Override
+	public void saveShopAdditionInfo(final int memberID, final Integer shopId, final ShopAdditionInfo shopAdditionInfo) {
+		final Optional<ShopAdditionInfo> shopAdditionInfoLast = Optional.ofNullable(selecctShopAdditionInfo(shopId));
+		if (shopAdditionInfoLast.isPresent() && shopAdditionInfoLast.get().getVer().equals(shopAdditionInfo.getVer())) {
+			ShopAdditionInfo updateAdditionInfo = shopAdditionInfoLast.get();
+			updateAdditionInfo.setUpdateDatetime(LocalDateTime.now());
+			updateAdditionInfo.setUpdateMemberId(memberID);
+			updateAdditionInfo.setValue(shopAdditionInfo.getValue());
+			shopAdditionInfoMapper.updateByPrimaryKeySelective(updateAdditionInfo);
+		} else {
+			shopAdditionInfoLast.ifPresentOrElse(x->{shopAdditionInfo.setVer(x.getVer()+1);}, ()->{
+				shopAdditionInfo.setVer(0);
+			});
+			shopAdditionInfo.setUpdateDatetime(LocalDateTime.now());
+			shopAdditionInfo.setUpdateMemberId(memberID);
+			shopAdditionInfoMapper.insert(shopAdditionInfo);
+		}
+	}
 	// TODO deleteは不正、Insert と Updata と deleteに修正必要, IDは固定しないと
 	@Override
 	public List<ShopItem> savaShopItem(int memberID, List<ShopItem> record) {
